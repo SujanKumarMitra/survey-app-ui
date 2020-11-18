@@ -5,23 +5,15 @@ import React, { useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './CheckBoxResponse.css';
+import generateUUID from '../../../utils/UUIDGenerator';
 
 const extractProps = (props) => {
     return {
         ...props,
-        question: props.question || 'Question',
-        required: props.required || true,
-        questionId: props.id || 'rand',
-        options: props.options || [
-            {
-                id: "rand1",
-                text: "Sample1"
-            },
-            {
-                id: "rand2",
-                text: "Sample2"
-            },
-        ]
+        question: props.question,
+        required: props.required,
+        questionId: props.id,
+        options: props.options
     };
 };
 
@@ -92,6 +84,17 @@ const CheckBoxResponse = (props) => {
             {/* <FormHelperText>Be careful</FormHelperText> */}
         </>
     );
+};
+CheckBoxResponse.defaultProps = {
+    question: 'No Question',
+    required: false,
+    questionId: generateUUID(),
+    options: [
+        {
+            id: generateUUID(),
+            text: "Other"
+        }
+    ]
 };
 
 export default CheckBoxResponse;

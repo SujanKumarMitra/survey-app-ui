@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './TextBoxResponse.css';
+import generateUUID from '../../../utils/UUIDGenerator';
 
 const extractProps = (props) => {
     return {
         ...props,
-        question: props.question || 'Question',
-        required: props.required || true,
-        questionId: props.id || 'rand'
+        question: props.question,
+        required: props.required,
+        questionId: props.id
     };
 }
 const icon = <SubjectRoundedIcon className={style.alignMiddle} />
@@ -50,5 +51,11 @@ const TextBoxResponse = (props) => {
         </>
     );
 }
+
+TextBoxResponse.defaultProps = {
+    question: 'Question',
+    required: false,
+    questionId: generateUUID()
+};
 
 export default TextBoxResponse;

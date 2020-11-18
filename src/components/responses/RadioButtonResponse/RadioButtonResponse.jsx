@@ -4,23 +4,15 @@ import React from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './RadioButtonResponse.css';
+import generateUUID from '../../../utils/UUIDGenerator';
 
 const extractProps = (props) => {
     return {
         ...props,
-        question: props.question || 'Question',
-        required: props.required || true,
-        questionId: props.id || 'rand',
-        options: props.options || [
-            {
-                id: "rand1",
-                text: "Sample1"
-            },
-            {
-                id: "rand2",
-                text: "Sample2"
-            },
-        ]
+        question: props.question,
+        required: props.required,
+        questionId: props.id,
+        options: props.options
     };
 };
 
@@ -61,6 +53,7 @@ const RadioResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             <RadioGroup id={props.questionId}
                 key={props.questionId}
                 aria-label={props.question}
@@ -72,5 +65,15 @@ const RadioResponse = (props) => {
         </>
     );
 };
-
+RadioResponse.defaultProps = {
+    question: 'Question',
+    required: false,
+    questionId: generateUUID(),
+    options: [
+        {
+            id: generateUUID(),
+            text: "Option"
+        },
+    ]
+};
 export default RadioResponse;
