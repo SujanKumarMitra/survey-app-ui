@@ -3,9 +3,9 @@ import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutline
 import Map from 'collections/map';
 import React, { useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
+import generateUUID from '../../../utils/UUIDGenerator';
 import Question from '../Question/Question.lazy';
 import './CheckBoxResponse.css';
-import generateUUID from '../../../utils/UUIDGenerator';
 
 const extractProps = (props) => {
     return {
@@ -58,19 +58,15 @@ const CheckBoxResponse = (props) => {
 
     const handleChange = (event) => {
         const { id, checked } = event.target;
-        setResponse(oldResponse => {
-            const map = oldResponse.optionMap;
-            map.set(id, checked);
-            return {
-                ...oldResponse,
-                optionIds: extractOptionIds(map)
-            };
-        });
+        const map = response.optionMap;
+        map.set(id, checked);
+        const newResponse = {
+            ...response,
+            optionIds: extractOptionIds(map)
+        };
+        console.log(newResponse);
+        setResponse(newResponse);
     };
-
-    React.useEffect(() => {
-        console.log(response);
-    }, [response]);
 
     return (
         <>
