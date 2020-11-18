@@ -41,8 +41,10 @@ const DateResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                    fullWidth
                     key={props.questionId}
                     format="dd/MM/yyyy"
                     variant="outlined"

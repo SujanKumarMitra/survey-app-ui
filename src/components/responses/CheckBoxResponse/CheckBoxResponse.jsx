@@ -85,6 +85,7 @@ const CheckBoxResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             <FormGroup>
                 {props.options.map(getFormControlLabel)}
             </FormGroup>

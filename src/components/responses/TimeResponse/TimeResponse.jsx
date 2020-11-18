@@ -42,8 +42,10 @@ const TimeResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardTimePicker
+                    fullWidth
                     key={props.questionId}
                     variant="outlined"
                     id={response.questionId}

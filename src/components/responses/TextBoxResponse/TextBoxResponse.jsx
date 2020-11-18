@@ -36,7 +36,9 @@ const TextBoxResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             <TextField
+                fullWidth
                 label='Answer'
                 variant='outlined'
                 key={props.questionId}
