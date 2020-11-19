@@ -2,11 +2,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import { FormLabel } from '@material-ui/core';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './DateResponse.css';
 import generateUUID from '../../../utils/UUIDGenerator';
+import { ResponseContext } from './../../FormResponse/FormResponse';
 
 const extractProps = (props) => {
     return {
@@ -19,12 +20,13 @@ const extractProps = (props) => {
 const icon = <DateRangeRoundedIcon className={style.alignMiddle} />
 
 const DateResponse = (props) => {
+    const responseMap = useContext(ResponseContext);
 
     props = extractProps(props);
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        answer: new Date()
+        answer: null
     });
 
     const handleChange = (date) => {
@@ -33,6 +35,7 @@ const DateResponse = (props) => {
             answer: date
         };
         console.log(updatedResponse);
+        responseMap.put(updatedResponse.questionId,updatedResponse);
         setResponse(updatedResponse);
     };
 
@@ -47,6 +50,7 @@ const DateResponse = (props) => {
                 <KeyboardDatePicker
                     fullWidth
                     key={props.questionId}
+                    required={props.required}
                     format="dd/MM/yyyy"
                     variant="outlined"
                     id={response.questionId}

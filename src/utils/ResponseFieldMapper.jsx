@@ -4,30 +4,30 @@ import DateResponse from '../components/responses/DateResponse/DateResponse.lazy
 import RadioResponse from '../components/responses/RadioButtonResponse/RadioButtonResponse';
 import TextBoxResponse from '../components/responses/TextBoxResponse/TextBoxResponse.lazy';
 import TimeResponse from '../components/responses/TimeResponse/TimeResponse.lazy';
-import ResponseCard from '../components/ResponseCard/ResponseCard.lazy';
+import Card from '../components/Card/Card.lazy';
 
 const fieldMapper = (field) => {
     switch (field.type) {
         case 'date':
-            return (<ResponseCard key={field.id} >
+            return (<Card key={field.id} >
                 <DateResponse {...field} />
-            </ResponseCard>);
+            </Card>);
         case 'time':
-            return (<ResponseCard key={field.id}>
+            return (<Card key={field.id}>
                 <TimeResponse {...field} />
-            </ResponseCard>);
+            </Card>);
         case 'textbox':
-            return (<ResponseCard key={field.id}>
+            return (<Card key={field.id}>
                 <TextBoxResponse {...field} />
-            </ResponseCard>);
+            </Card>);
         case 'checkbox':
-            return (<ResponseCard key={field.id}>
+            return (<Card key={field.id}>
                 <CheckBoxResponse {...field} />
-            </ResponseCard>);
+            </Card>);
         case 'radio':
-            return (<ResponseCard key={field.id}>
+            return (<Card key={field.id}>
                 <RadioResponse {...field} />
-            </ResponseCard>);
+            </Card>);
         default:
             console.log(`unknown field '${field}'`);
             return <> </>;

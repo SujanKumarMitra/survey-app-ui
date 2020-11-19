@@ -2,11 +2,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import { FormLabel } from '@material-ui/core';
 import ScheduleRoundedIcon from '@material-ui/icons/ScheduleRounded';
 import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './TimeResponse.css';
 import generateUUID from '../../../utils/UUIDGenerator';
+import { ResponseContext } from './../../FormResponse/FormResponse';
 
 const extractProps = (props) => {
     return {
@@ -20,12 +21,12 @@ const extractProps = (props) => {
 const icon = <ScheduleRoundedIcon className={style.alignMiddle} />
 
 const TimeResponse = (props) => {
-
+    const responseMap = useContext(ResponseContext);
     props = extractProps(props);
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        answer: new Date()
+        answer: null
     });
 
     const handleChange = (date) => {
@@ -34,6 +35,7 @@ const TimeResponse = (props) => {
             answer: date
         };
         console.log(updatedResponse);
+        responseMap.put(updatedResponse.questionId,updatedResponse);
         setResponse(updatedResponse);
     };
 
@@ -47,6 +49,7 @@ const TimeResponse = (props) => {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardTimePicker
                     fullWidth
+                    required={props.required}
                     key={props.questionId}
                     variant="outlined"
                     id={response.questionId}

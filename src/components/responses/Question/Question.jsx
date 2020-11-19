@@ -3,7 +3,7 @@ import React from 'react';
 import required from '../../../utils/RequiredFragment';
 import './Question.css';
 
-const Space = (props) =>
+export const Space = (props) =>
     (
         <>
             &nbsp;&nbsp;

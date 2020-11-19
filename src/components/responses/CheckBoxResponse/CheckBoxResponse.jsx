@@ -1,10 +1,12 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@material-ui/core';
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import Map from 'collections/map';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import generateUUID from '../../../utils/UUIDGenerator';
 import Question from '../Question/Question.lazy';
+import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
+import { ResponseContext } from './../../FormResponse/FormResponse';
 import './CheckBoxResponse.css';
 
 const extractProps = (props) => {
@@ -31,15 +33,15 @@ const extractOptionIds = (map) => {
 };
 
 const icon = <CheckCircleOutlineRoundedIcon className={style.alignMiddle} />;
-
 const CheckBoxResponse = (props) => {
-
-    const getFormControlLabel = (option) => {
+    const responseMap = useContext(ResponseContext);
+    const getFormControlLabel = (option, required) => {
         return (
             <FormControlLabel
                 key={option.id}
                 control={<Checkbox
                     id={option.id}
+                    required={required}
                     onChange={handleChange}
                     name={option.text} />}
                 label={option.text}
@@ -47,7 +49,6 @@ const CheckBoxResponse = (props) => {
         );
     };
     props = extractProps(props);
-
     const map = createMap(props.options);
     const [response, setResponse] = useState({
         questionId: props.questionId,
@@ -65,20 +66,26 @@ const CheckBoxResponse = (props) => {
             optionIds: extractOptionIds(map)
         };
         console.log(newResponse);
+        responseMap.put(newResponse.questionId, newResponse);
         setResponse(newResponse);
     };
 
+    const isAtLeastOneChecked = (response) => {
+        return response.optionIds.length <= 0;
+    }
+
+    const isChecked = isAtLeastOneChecked(response);
     return (
-        <>
+        <FormControl required error={isChecked} component="fieldset">
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            {props.required ? <ErrorMessage message='Pick at least one' /> : <></>}
             <br />
             <FormGroup>
-                {props.options.map(getFormControlLabel)}
+                {props.options.map(option => getFormControlLabel(option,isChecked))}
             </FormGroup>
-            {/* <FormHelperText>Be careful</FormHelperText> */}
-        </>
+        </FormControl>
     );
 };
 CheckBoxResponse.defaultProps = {
