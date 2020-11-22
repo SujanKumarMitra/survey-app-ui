@@ -55,6 +55,7 @@ const TimeResponse = (props) => {
                     key={props.questionId}
                     variant="outlined"
                     id={response.questionId}
+                    autoComplete='off'
                     label="Pick Time"
                     value={response.date}
                     onChange={handleChange}

@@ -46,6 +46,7 @@ const TextBoxResponse = (props) => {
                 fullWidth
                 label='Answer'
                 variant='outlined'
+                autoComplete='off'
                 key={props.questionId}
                 id={response.questionId}
                 required={props.required}

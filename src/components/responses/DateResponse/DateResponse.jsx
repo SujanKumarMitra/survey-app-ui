@@ -53,6 +53,7 @@ const DateResponse = (props) => {
                     fullWidth
                     key={props.questionId}
                     required={props.required}
+                    autoComplete='off'
                     format="dd/MM/yyyy"
                     variant="outlined"
                     id={response.questionId}
