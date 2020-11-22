@@ -2,13 +2,13 @@ import { Button, Container } from '@material-ui/core';
 import React, { useContext } from 'react';
 import getResponseField from '../../utils/ResponseFieldMapper';
 import ConfirmDialogBox from '../ConfirmDialogBox/ConfirmDialogBox';
-import { ResponseContext } from '../FormResponse/FormResponse';
+import { ApiStateContext } from '../FormResponse/FormResponse';
 import FormDescription from './../FormDescription/FormDescription.lazy';
 import './FormLayout.css';
 
 const FormLayout = (props) => {
     const { formTemplate } = props;
-    const { apiCallInfo } = useContext(ResponseContext);
+    const { apiState } = useContext(ApiStateContext);
     const [dialogBoxState, setDialogBoxState] = React.useState(false);
 
     const handleSubmit = (event) => {
@@ -18,7 +18,7 @@ const FormLayout = (props) => {
 
     const handleConfirm = (event) => {
         setDialogBoxState(false);
-        apiCallInfo.post();
+        apiState.post();
     };
 
     const handleCancel = (event) => {

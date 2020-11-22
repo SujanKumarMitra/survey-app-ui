@@ -13,10 +13,11 @@ import ResponseState from './ResponseState';
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();
 export const ResponseContext = createContext();
+export const ApiStateContext = createContext();
 
 const FormResponse = (props) => {
     const { formId } = useParams();
-    const [apiCallInfo, setApiCallInfo] = useState({
+    const [axiosState, setAxiosState] = useState({
         formId: formId,
         state: ResponseState.NOT_FETCHED,
         fetch() {
@@ -24,7 +25,7 @@ const FormResponse = (props) => {
             formPromise.then(axiosResponse => {
                 console.log('axios promise resolved');
                 console.log(axiosResponse);
-                setApiCallInfo({
+                setAxiosState({
                     ...this,
                     state: ResponseState.FETCH_SUCCESS,
                     response: axiosResponse,
@@ -34,7 +35,7 @@ const FormResponse = (props) => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
                 const { errorTitle, errorDescription } = extractErrors(error);
-                setApiCallInfo({
+                setAxiosState({
                     ...this,
                     state: ResponseState.FETCH_ERROR,
                     errorTitle: errorTitle,
@@ -44,7 +45,7 @@ const FormResponse = (props) => {
         },
         post() {
             const formTemplate = this.formTemplate;
-            setApiCallInfo({
+            setAxiosState({
                 ...this,
                 state: ResponseState.POSTING,
             })
@@ -71,7 +72,7 @@ const FormResponse = (props) => {
                 console.log('axios promise resolved');
                 console.log(axiosResponse);
 
-                setApiCallInfo({
+                setAxiosState({
                     ...this,
                     state: ResponseState.POST_SUCCESS,
                 });
@@ -80,7 +81,7 @@ const FormResponse = (props) => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
                 const { errorTitle, errorDescription } = extractErrors(error);
-                setApiCallInfo({
+                setAxiosState({
                     ...this,
                     state: ResponseState.POST_ERROR,
                     errorTitle: errorTitle,
@@ -90,24 +91,28 @@ const FormResponse = (props) => {
         }
     });
 
-    switch (apiCallInfo.state) {
+    switch (axiosState.state) {
         case ResponseState.NOT_FETCHED:
-            apiCallInfo.fetch();
+            axiosState.fetch();
             return <FormResponseLoadingAnimation />
         case ResponseState.FETCH_SUCCESS:
             return (
                 <ResponseContext.Provider value={{
-                    responseMap: responseMap,
-                    apiCallInfo: apiCallInfo,
+                    responseMap: responseMap
                 }}>
-                    <FormLayout formTemplate={apiCallInfo.formTemplate} />
-                </ResponseContext.Provider>
+                    <ApiStateContext.Provider value={{
+                        apiState: axiosState,
+                        setApiState: setAxiosState
+                    }}>
+                        <FormLayout formTemplate={axiosState.formTemplate} />
+                    </ApiStateContext.Provider>
+                </ResponseContext.Provider >
             );
         case ResponseState.FETCH_ERROR:
             return (
                 <FormResponseError
-                    title={`${apiCallInfo.errorTitle}`}
-                    description={`${apiCallInfo.errorDescription}`}
+                    title={`${axiosState.errorTitle}`}
+                    description={`${axiosState.errorDescription}`}
                 />
             );
         case ResponseState.POSTING:
@@ -115,8 +120,8 @@ const FormResponse = (props) => {
         case ResponseState.POST_SUCCESS:
             return (
                 <ResponseContext.Provider value={{
-                    apiCallInfo: apiCallInfo,
-                    setApiCallInfo: setApiCallInfo,
+                    apiCallInfo: axiosState,
+                    setApiCallInfo: setAxiosState,
                 }}>
                     <FormResponseSuccess />
                 </ResponseContext.Provider>
@@ -124,12 +129,12 @@ const FormResponse = (props) => {
         case ResponseState.POST_ERROR:
             return (
                 <FormResponseError
-                    title={`${apiCallInfo.errorTitle}`}
-                    description={`${apiCallInfo.errorDescription}`}
+                    title={`${axiosState.errorTitle}`}
+                    description={`${axiosState.errorDescription}`}
                 />
             );
         default:
-            console.log(`invalid state ${apiCallInfo.state}`);
+            console.log(`invalid state ${axiosState.state}`);
     }
 };
 

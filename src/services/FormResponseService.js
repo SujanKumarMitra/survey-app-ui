@@ -10,6 +10,10 @@ export default class FormResponseService {
     }
 
     postResponse(body) {
-        return Axios.post( `${this.baseUrl}/v1/response`, body);
+        return Axios.post( `${this.baseUrl}/v1/response?zoneId=${this.getZoneId()}`, body);
+    }
+
+    getZoneId() {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
     }
 }
