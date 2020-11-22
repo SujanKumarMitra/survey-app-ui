@@ -1,11 +1,11 @@
-import { FormControl, FormLabel, TextField } from '@material-ui/core';
+import { FormLabel, TextField } from '@material-ui/core';
 import SubjectRoundedIcon from '@material-ui/icons/SubjectRounded';
 import React, { useContext, useState } from 'react';
+import generateUUID from '../../../services/UUIDGenerator';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
-import './TextBoxResponse.css';
-import generateUUID from '../../../services/UUIDGenerator';
 import { ResponseContext } from './../../FormResponse/FormResponse';
+import './TextBoxResponse.css';
 
 const extractProps = (props) => {
     return {
