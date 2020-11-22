@@ -8,6 +8,7 @@ import FormResponseService from '../../services/FormResponseService';
 import ResponseMap from '../../utils/ResponseMap';
 import FormResponseLoadingAnimation from '../../animation/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
 import FormResponseSuccess from '../../components/FormResponseSuccess/FormResponseSuccess';
+import FormResponseError from '../../components/FormResponseError/FormResponseError';
 
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();
