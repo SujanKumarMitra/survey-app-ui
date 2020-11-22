@@ -18,7 +18,7 @@ const extractProps = (props) => {
 const icon = <SubjectRoundedIcon className={style.alignMiddle} />
 
 const TextBoxResponse = (props) => {
-    const responseMap = useContext(ResponseContext);
+    const { responseMap} = useContext(ResponseContext);
     props = extractProps(props);
     const [response, setResponse] = useState({
         questionId: props.questionId,

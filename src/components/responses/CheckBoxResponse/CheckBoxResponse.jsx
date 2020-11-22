@@ -34,7 +34,7 @@ const extractOptionIds = (map) => {
 
 const icon = <CheckCircleOutlineRoundedIcon className={style.alignMiddle} />;
 const CheckBoxResponse = (props) => {
-    const responseMap = useContext(ResponseContext);
+    const { responseMap } = useContext(ResponseContext);
     const getFormControlLabel = (option, required) => {
         return (
             <FormControlLabel
@@ -81,10 +81,11 @@ const CheckBoxResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             {props.required ? <ErrorMessage message='Pick at least one' /> : <></>}
             <br />
             <FormGroup>
-                {props.options.map(option => getFormControlLabel(option,isChecked))}
+                {props.options.map(option => getFormControlLabel(option, isChecked))}
             </FormGroup>
         </FormControl>
     );

@@ -39,7 +39,7 @@ const checked = (response) => {
 const icon = <RadioButtonCheckedIcon className={style.alignMiddle} />
 
 const RadioResponse = (props) => {
-    const responseMap = useContext(ResponseContext);
+    const { responseMap} = useContext(ResponseContext);
     props = extractProps(props);
     const [response, setResponse] = React.useState({
         questionId: props.questionId,
@@ -63,6 +63,7 @@ const RadioResponse = (props) => {
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />
+            <br />
             {props.required ? <ErrorMessage message='Pick at least one' /> : <></>}
             <br />
             <RadioGroup id={props.questionId}

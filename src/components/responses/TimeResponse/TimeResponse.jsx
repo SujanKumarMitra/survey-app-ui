@@ -21,7 +21,7 @@ const extractProps = (props) => {
 const icon = <ScheduleRoundedIcon className={style.alignMiddle} />
 
 const TimeResponse = (props) => {
-    const responseMap = useContext(ResponseContext);
+    const { responseMap} = useContext(ResponseContext);
     props = extractProps(props);
 
     const [response, setResponse] = useState({

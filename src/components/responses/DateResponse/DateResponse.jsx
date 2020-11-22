@@ -20,7 +20,7 @@ const extractProps = (props) => {
 const icon = <DateRangeRoundedIcon className={style.alignMiddle} />
 
 const DateResponse = (props) => {
-    const responseMap = useContext(ResponseContext);
+    const { responseMap } = useContext(ResponseContext);
 
     props = extractProps(props);
 
@@ -36,7 +36,7 @@ const DateResponse = (props) => {
             answer: date
         };
         console.log(updatedResponse);
-        responseMap.put(updatedResponse.questionId,updatedResponse);
+        responseMap.put(updatedResponse.questionId, updatedResponse);
         setResponse(updatedResponse);
     };
 
