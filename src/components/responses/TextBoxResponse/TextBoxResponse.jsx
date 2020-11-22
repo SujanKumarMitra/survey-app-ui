@@ -1,10 +1,10 @@
-import { FormLabel, TextField } from '@material-ui/core';
+import { FormControl, FormLabel, TextField } from '@material-ui/core';
 import SubjectRoundedIcon from '@material-ui/icons/SubjectRounded';
 import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './TextBoxResponse.css';
-import generateUUID from '../../../utils/UUIDGenerator';
+import generateUUID from '../../../services/UUIDGenerator';
 import { ResponseContext } from './../../FormResponse/FormResponse';
 
 const extractProps = (props) => {
@@ -18,7 +18,7 @@ const extractProps = (props) => {
 const icon = <SubjectRoundedIcon className={style.alignMiddle} />
 
 const TextBoxResponse = (props) => {
-    const { responseMap} = useContext(ResponseContext);
+    const { responseMap } = useContext(ResponseContext);
     props = extractProps(props);
     const [response, setResponse] = useState({
         questionId: props.questionId,
@@ -32,7 +32,7 @@ const TextBoxResponse = (props) => {
             answer: value
         };
         console.log(updatedResponse);
-        responseMap.put(updatedResponse.questionId,updatedResponse);
+        responseMap.put(updatedResponse.questionId, updatedResponse);
         setResponse(updatedResponse);
     };
 

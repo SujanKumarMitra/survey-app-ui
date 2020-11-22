@@ -6,7 +6,7 @@ import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './DateResponse.css';
-import generateUUID from '../../../utils/UUIDGenerator';
+import generateUUID from '../../../services/UUIDGenerator';
 import { ResponseContext } from './../../FormResponse/FormResponse';
 
 const extractProps = (props) => {
@@ -27,13 +27,14 @@ const DateResponse = (props) => {
     const [response, setResponse] = useState({
         questionId: props.questionId,
         type: 'date',
+        date: null,
         answer: null
     });
 
     const handleChange = (date) => {
         const updatedResponse = {
             ...response,
-            answer: date
+            date: date
         };
         console.log(updatedResponse);
         responseMap.put(updatedResponse.questionId, updatedResponse);
@@ -56,7 +57,7 @@ const DateResponse = (props) => {
                     variant="outlined"
                     id={response.questionId}
                     label="Pick Date"
-                    value={response.answer}
+                    value={response.date}
                     onChange={handleChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',

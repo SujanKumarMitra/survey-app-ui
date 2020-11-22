@@ -8,4 +8,8 @@ export default class FormResponseService {
     getForm(formId) {
         return Axios.get(`${this.baseUrl}/v1/form/${formId}`);
     }
+
+    postResponse(body) {
+        return Axios.post( `${this.baseUrl}/v1/response`, body);
+    }
 }

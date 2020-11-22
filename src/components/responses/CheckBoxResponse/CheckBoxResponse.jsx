@@ -3,11 +3,12 @@ import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutline
 import Map from 'collections/map';
 import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
-import generateUUID from '../../../utils/UUIDGenerator';
+import generateUUID from '../../../services/UUIDGenerator';
 import Question from '../Question/Question.lazy';
 import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
 import { ResponseContext } from './../../FormResponse/FormResponse';
 import './CheckBoxResponse.css';
+import { green } from '@material-ui/core/colors';
 
 const extractProps = (props) => {
     return {
@@ -71,13 +72,13 @@ const CheckBoxResponse = (props) => {
         setResponse(newResponse);
     };
 
-    const isAtLeastOneChecked = (response) => {
-        return response.optionIds.length <= 0;
+    const isAtLeastOneChecked = (required, response) => {
+        return required && response.optionIds.length <= 0;
     }
 
-    const isChecked = isAtLeastOneChecked(response);
+    const isChecked = isAtLeastOneChecked(props.required, response);
     return (
-        <FormControl required error={isChecked} component="fieldset">
+        <FormControl required={props.required} error={isChecked} component="fieldset">
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />

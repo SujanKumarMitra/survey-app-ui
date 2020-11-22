@@ -7,8 +7,8 @@ import FormDescription from './../FormDescription/FormDescription.lazy';
 import './FormLayout.css';
 
 const FormLayout = (props) => {
-    const formTemplate = props.data;
-    const responseMap = useContext(ResponseContext);
+    const { formTemplate } = props;
+    const { apiCallInfo } = useContext(ResponseContext);
     const [dialogBoxState, setDialogBoxState] = React.useState(false);
 
     const handleSubmit = (event) => {
@@ -18,7 +18,7 @@ const FormLayout = (props) => {
 
     const handleConfirm = (event) => {
         setDialogBoxState(false);
-        console.log(responseMap);
+        apiCallInfo.post();
     };
 
     const handleCancel = (event) => {

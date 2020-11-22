@@ -1,13 +1,19 @@
 export default class ResponseMap {
     constructor() {
-        this.responses = new Map();
+        this._responses = new Map();
     }
 
     put(questionId, data) {
-        this.responses.set(questionId, data);
+        this._responses.set(questionId, data);
     }
 
-    getResponses() {
-        return this.responses;
+    get responses() {
+        return this._responses;
+    }
+
+    set responses(responses) {}
+
+    getValues() {
+        return [...this.responses.values()];
     }
 }

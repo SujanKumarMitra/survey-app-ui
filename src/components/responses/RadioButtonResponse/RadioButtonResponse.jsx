@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import './RadioButtonResponse.css';
-import generateUUID from '../../../utils/UUIDGenerator';
+import generateUUID from '../../../services/UUIDGenerator';
 import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
 import { ResponseContext } from './../../FormResponse/FormResponse';
 
@@ -59,7 +59,7 @@ const RadioResponse = (props) => {
         setResponse(updatedResponse);
     };
     return (
-        <FormControl required error={checked(response)} component="fieldset">
+        <FormControl required={props.required} error={checked(response)} component="fieldset">
             <FormLabel
                 component={() => <Question {...props}
                     icon={icon} />} />

@@ -1,7 +1,14 @@
-import FormResponse from './components/FormResponse/FormResponse.lazy';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import FormResponse from './components/FormResponse/FormResponse';
 const App = (props) => {
     return (
-        <FormResponse />
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/form/:formId">
+                    <FormResponse />
+                </Route>
+            </Switch>
+        </BrowserRouter>
     );
 }
 
