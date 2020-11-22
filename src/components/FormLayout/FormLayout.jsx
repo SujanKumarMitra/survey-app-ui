@@ -2,7 +2,7 @@ import { Button, Container } from '@material-ui/core';
 import React, { useContext } from 'react';
 import getResponseField from '../../utils/ResponseFieldMapper';
 import ConfirmDialogBox from '../ConfirmDialogBox/ConfirmDialogBox';
-import { ApiStateContext } from '../FormResponse/FormResponse';
+import { ApiStateContext } from '../../pages/FormResponse/FormResponse';
 import FormDescription from './../FormDescription/FormDescription.lazy';
 import './FormLayout.css';
 

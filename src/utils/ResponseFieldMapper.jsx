@@ -1,9 +1,9 @@
 import React from 'react';
-import CheckBoxResponse from '../components/responses/CheckBoxResponse/CheckBoxResponse.lazy';
-import DateResponse from '../components/responses/DateResponse/DateResponse.lazy';
-import RadioResponse from '../components/responses/RadioButtonResponse/RadioButtonResponse';
-import TextBoxResponse from '../components/responses/TextBoxResponse/TextBoxResponse.lazy';
-import TimeResponse from '../components/responses/TimeResponse/TimeResponse.lazy';
+import CheckBoxResponse from '../components/ResponseFields/CheckBoxResponse/CheckBoxResponse.lazy';
+import DateResponse from '../components/ResponseFields/DateResponse/DateResponse.lazy';
+import RadioResponse from '../components/ResponseFields/RadioButtonResponse/RadioButtonResponse';
+import TextBoxResponse from '../components/ResponseFields/TextBoxResponse/TextBoxResponse.lazy';
+import TimeResponse from '../components/ResponseFields/TimeResponse/TimeResponse.lazy';
 import Card from '../components/Card/Card.lazy';
 
 const fieldMapper = (field) => {

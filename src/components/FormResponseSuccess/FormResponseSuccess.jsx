@@ -6,8 +6,8 @@ import PublishIcon from '@material-ui/icons/Publish';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import cardStyles from '../../utils/MaterialCardStyles';
-import { ResponseContext } from '../FormResponse/FormResponse';
-import ResponseState from '../FormResponse/ResponseState';
+import { ResponseContext } from '../../pages/FormResponse/FormResponse';
+import ResponseState from '../../pages/FormResponse/ResponseState';
 import './FormResponseSuccess.css';
 
 const FormResponseSuccess = (props) => {

@@ -1,14 +1,13 @@
 import React, { createContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getFormatter } from '../../services/ResponseFormatter';
-import ResponseMap from '../../utils/ResponseMap';
-import FormLayout from '../FormLayout/FormLayout';
-import FormResponseError from '../FormResponseError/FormResponseError';
-import FormResponseSuccess from '../FormResponseSuccess/FormResponseSuccess';
-import FormResponseService from './../../services/FormResponseService';
-import FormResponseLoadingAnimation from './../animation/FormResponseLoadingAnimation/FormResponseLoadingAnimation.lazy';
+import FormLayout from '../../components/FormLayout/FormLayout';
 import './FormResponse.css';
+import { getFormatter} from '../../services/ResponseFormatter'
 import ResponseState from './ResponseState';
+import FormResponseService from '../../services/FormResponseService';
+import ResponseMap from '../../utils/ResponseMap';
+import FormResponseLoadingAnimation from '../../animation/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
+import FormResponseSuccess from '../../components/FormResponseSuccess/FormResponseSuccess';
 
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();

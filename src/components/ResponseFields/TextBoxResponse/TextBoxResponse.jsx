@@ -4,7 +4,7 @@ import React, { useContext, useState } from 'react';
 import generateUUID from '../../../services/UUIDGenerator';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
-import { ResponseContext } from './../../FormResponse/FormResponse';
+import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 import './TextBoxResponse.css';
 
 const extractProps = (props) => {

@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import { Skeleton } from '@material-ui/lab';
 import React from 'react';
-import cardStyles from '../../../utils/MaterialCardStyles';
+import cardStyles from '../../utils/MaterialCardStyles';
 import './FormResponseLoadingAnimation.css';
 
 const FormDescriptionAnimationArea = (props) => {

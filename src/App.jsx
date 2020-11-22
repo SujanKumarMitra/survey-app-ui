@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FormResponse from './components/FormResponse/FormResponse';
+import FormResponse from './pages/FormResponse/FormResponse';
 const App = (props) => {
     return (
         <BrowserRouter>

@@ -1,13 +1,13 @@
 import DateFnsUtils from '@date-io/date-fns';
 import { FormLabel } from '@material-ui/core';
-import ScheduleRoundedIcon from '@material-ui/icons/ScheduleRounded';
-import { KeyboardTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import React, { useContext, useState } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
-import './TimeResponse.css';
+import './DateResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
-import { ResponseContext } from './../../FormResponse/FormResponse';
+import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 
 const extractProps = (props) => {
     return {
@@ -17,16 +17,16 @@ const extractProps = (props) => {
         questionId: props.id
     };
 }
+const icon = <DateRangeRoundedIcon className={style.alignMiddle} />
 
-const icon = <ScheduleRoundedIcon className={style.alignMiddle} />
+const DateResponse = (props) => {
+    const { responseMap } = useContext(ResponseContext);
 
-const TimeResponse = (props) => {
-    const { responseMap} = useContext(ResponseContext);
     props = extractProps(props);
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'time',
+        type: 'date',
         date: null,
         answer: null
     });
@@ -49,18 +49,19 @@ const TimeResponse = (props) => {
                     icon={icon} />} />
             <br />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <KeyboardTimePicker
+                <KeyboardDatePicker
                     fullWidth
-                    required={props.required}
                     key={props.questionId}
+                    required={props.required}
+                    autoComplete='off'
+                    format="dd/MM/yyyy"
                     variant="outlined"
                     id={response.questionId}
-                    autoComplete='off'
-                    label="Pick Time"
+                    label="Pick Date"
                     value={response.date}
                     onChange={handleChange}
                     KeyboardButtonProps={{
-                        'aria-label': 'change time',
+                        'aria-label': 'change date',
                     }}
                 />
             </MuiPickersUtilsProvider>
@@ -68,10 +69,10 @@ const TimeResponse = (props) => {
     );
 }
 
-TimeResponse.defaultProps = {
+DateResponse.defaultProps = {
     question: 'Question',
     required: false,
     questionId: generateUUID()
 };
 
-export default TimeResponse;
+export default DateResponse;

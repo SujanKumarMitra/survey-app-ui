@@ -2,13 +2,12 @@ import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@
 import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
 import Map from 'collections/map';
 import React, { useContext, useState } from 'react';
-import style from '../../../utils/material-icon.module.css';
 import generateUUID from '../../../services/UUIDGenerator';
+import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
-import { ResponseContext } from './../../FormResponse/FormResponse';
+import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 import './CheckBoxResponse.css';
-import { green } from '@material-ui/core/colors';
 
 const extractProps = (props) => {
     return {

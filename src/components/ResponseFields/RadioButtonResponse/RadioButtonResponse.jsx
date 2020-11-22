@@ -6,7 +6,7 @@ import Question from '../Question/Question.lazy';
 import './RadioButtonResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
 import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
-import { ResponseContext } from './../../FormResponse/FormResponse';
+import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 
 const extractProps = (props) => {
     return {
