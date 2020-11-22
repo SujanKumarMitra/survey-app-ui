@@ -22,6 +22,7 @@ const TextBoxResponse = (props) => {
     props = extractProps(props);
     const [response, setResponse] = useState({
         questionId: props.questionId,
+        type: 'textbox',
         answer: ''
     });
     const handleChange = (event) => {

@@ -43,6 +43,7 @@ const RadioResponse = (props) => {
     props = extractProps(props);
     const [response, setResponse] = React.useState({
         questionId: props.questionId,
+        type: 'radio',
         optionId: '',
         answer: ''
     });

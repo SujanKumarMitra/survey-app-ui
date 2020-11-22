@@ -26,6 +26,7 @@ const TimeResponse = (props) => {
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
+        type: 'time',
         answer: null
     });
 
@@ -35,7 +36,7 @@ const TimeResponse = (props) => {
             answer: date
         };
         console.log(updatedResponse);
-        responseMap.put(updatedResponse.questionId,updatedResponse);
+        responseMap.put(updatedResponse.questionId, updatedResponse);
         setResponse(updatedResponse);
     };
 

@@ -26,6 +26,7 @@ const DateResponse = (props) => {
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
+        type: 'date',
         answer: null
     });
 
