@@ -7,7 +7,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AxiosStateContext } from '../../pages/FormResponseData/FormResponseData';
+import ResponseDataState from '../../pages/FormResponseData/ResponseDataState';
 import './FormResponseDataTable.css';
 
 
@@ -35,7 +37,16 @@ const useStyles = makeStyles({
     },
 });
 
+const extractProps = (props, axiosState) => {
+    return {
+        ...props,
+        ...axiosState.formData,
+    }
+}
+
 const FormResponseDataTable = (props) => {
+    const { axiosState, setAxiosState } = useContext(AxiosStateContext);
+    props = extractProps(props, axiosState)
     const classes = useStyles();
     const [tableData, setTableData] = useState({
         page: 0,
@@ -48,6 +59,16 @@ const FormResponseDataTable = (props) => {
             return this.fullData.slice(this.page * this.countPerPage, (this.page + 1) * this.countPerPage)
         },
     });
+
+    const handleRefresh = (event) => {
+        setAxiosState({
+            ...axiosState,
+            state: ResponseDataState.FORM_INPUT_COMPLETE,
+        })
+    }
+
+    console.log(props);
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -60,25 +81,26 @@ const FormResponseDataTable = (props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tableData.renderingData().map((row, index) => (
-                            <StyledTableRow key={index}>
-                                {row.map((cell, index) => (
-                                    <StyledTableCell key={index} align="center">{cell}</StyledTableCell>
-                                ))}
-                            </StyledTableRow>
-                        ))}
+                        {tableData.renderingData()
+                            .map((row, index) => (
+                                <StyledTableRow key={index}>
+                                    {row.map((cell, index) => (
+                                        <StyledTableCell key={index} align="center">{cell}</StyledTableCell>
+                                    ))}
+                                </StyledTableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             <Grid container direction="row" alignItems="center" justify="center" spacing={5}>
                 <Grid item>
                     <TablePagination
+                        component="div"
                         rowsPerPageOptions={[2, 5, 10, 15, 20, 25, 50, 100]}
                         count={tableData.totalCount}
                         rowsPerPage={tableData.countPerPage}
                         page={tableData.page}
                         onChangePage={(event, page) => {
-                            console.log(page);
                             setTableData({
                                 ...tableData,
                                 page: page,
@@ -95,7 +117,10 @@ const FormResponseDataTable = (props) => {
                     />
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" color="primary">Download CSV</Button>
+                    <Button onClick={handleRefresh} variant="contained" color="primary">Refresh</Button>
+                </Grid>
+                <Grid item>
+                    <Button target="_blank" href={props.downloadUrl} variant="contained" color="primary">Download CSV</Button>
                 </Grid>
             </Grid>
         </>
@@ -111,7 +136,7 @@ FormResponseDataTable.defaultProps = {
         'Column4',
         'Column5',
     ],
-
+    downloadUrl: "#",
     data: [[
         'cell-11',
         'cell-12',
