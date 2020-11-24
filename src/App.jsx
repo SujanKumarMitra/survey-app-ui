@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FormResponseDataTableLoadingAnimation from './animations/FormResponseDataTableLoadingAnimation/FormResponseDataTableLoadingAnimation';
 import FormResponse from './pages/FormResponse/FormResponse';
 import FormResponseData from './pages/FormResponseData/FormResponseData';
 const App = (props) => {
