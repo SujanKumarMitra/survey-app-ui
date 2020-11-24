@@ -2,13 +2,15 @@ import React, { createContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FormLayout from '../../components/FormLayout/FormLayout';
 import './FormResponse.css';
-import { getFormatter} from '../../services/ResponseFormatter'
+import { getFormatter } from '../../services/ResponseFormatter'
 import ResponseState from './ResponseState';
 import FormResponseService from '../../services/FormResponseService';
 import ResponseMap from '../../utils/ResponseMap';
-import FormResponseLoadingAnimation from '../../animation/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
+import FormResponseLoadingAnimation from '../../animations/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
 import FormResponseSuccess from '../../components/FormResponseSuccess/FormResponseSuccess';
 import FormResponseError from '../../components/FormResponseError/FormResponseError';
+import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
+import ExtractErrors from '../../utils/ExtractErrors';
 
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();
@@ -34,10 +36,10 @@ const FormResponse = (props) => {
             }).catch(error => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
-                const { errorTitle, errorDescription } = extractErrors(error);
+                const { errorTitle, errorDescription } = ExtractErrors(error);
                 setAxiosState({
                     ...this,
-                    state: ResponseState.FETCH_ERROR,
+                    state: error.response ? ResponseState.FETCH_ERROR : ResponseState.API_ERROR,
                     errorTitle: errorTitle,
                     errorDescription: errorDescription
                 });
@@ -80,7 +82,7 @@ const FormResponse = (props) => {
             }).catch(error => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
-                const { errorTitle, errorDescription } = extractErrors(error);
+                const { errorTitle, errorDescription } = ExtractErrors(error);
                 setAxiosState({
                     ...this,
                     state: ResponseState.POST_ERROR,
@@ -133,6 +135,10 @@ const FormResponse = (props) => {
                     description={`${axiosState.errorDescription}`}
                 />
             );
+        case ResponseState.API_ERROR:
+            return (
+                <ServerErrorCard />
+            );
         default:
             console.log(`invalid state ${axiosState.state}`);
     }
@@ -141,13 +147,4 @@ const FormResponse = (props) => {
 FormResponse.defaultProps = {};
 
 export default FormResponse;
-function extractErrors(error) {
-    const errorTitle = error.response ? error.response.data.message : 'Oops!!';
-    const errorDescription = error.response ? error
-        .response.data
-        .errors
-        .map(error => error.reason)
-        .join("<br>") : "Server Not Responding. Please try again later.";
-    return { errorTitle, errorDescription };
-}
 

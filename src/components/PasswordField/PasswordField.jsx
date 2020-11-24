@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
-import { FormResponseDataContext } from '../../pages/FormResponseData/FormResponseData';
+import { AxiosStateContext } from '../../pages/FormResponseData/FormResponseData';
 import cardStyles from './../../utils/MaterialCardStyles';
 import './PasswordField.css';
 
@@ -12,26 +12,19 @@ import './PasswordField.css';
 
 const PasswordField = (props) => {
     const classes = cardStyles();
-    const formDataAccessRequest = useContext(FormResponseDataContext);
-    const [requestState, setRequestState] = useState({
-        ...formDataAccessRequest,
-        password: '',
-        showPassword: false,
-    });
+    const [showPassword, setShowPassword] = useState(false);
+    const { axiosState, setAxiosState } = useContext(AxiosStateContext);
     const handleChange = (event) => {
         const { value } = event.target;
+        axiosState.request.accessKey = value;
         console.log(event.target);
-        formDataAccessRequest.accessKey = value;
-        setRequestState({
-            ...formDataAccessRequest,
+        setAxiosState({
+            ...axiosState,
         });
     };
 
     const handleClickShowPassword = (event) => {
-        setRequestState({ 
-            ...formDataAccessRequest, 
-            showPassword: !requestState.showPassword 
-        });
+        setShowPassword(!showPassword);
     };
 
     const handleMouseDownPassword = (event) => {
@@ -42,8 +35,8 @@ const PasswordField = (props) => {
             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
             <OutlinedInput
                 id="outlined-adornment-password"
-                type={requestState.showPassword ? 'text' : 'password'}
-                value={requestState.accessKey}
+                type={showPassword ? 'text' : 'password'}
+                value={axiosState.request.accessKey}
                 onChange={handleChange}
                 required
                 autoComplete='off'
@@ -55,7 +48,7 @@ const PasswordField = (props) => {
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                         >
-                            {requestState.showPassword ? <Visibility /> : <VisibilityOff />}
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>
                 }
