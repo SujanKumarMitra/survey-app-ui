@@ -1,13 +1,12 @@
-import React, { createContext } from 'react';
-import { useState } from 'react';
+import React, { createContext, useState } from 'react';
+import FormResponseDataTableLoadingAnimation from '../../animations/FormResponseDataTableLoadingAnimation/FormResponseDataTableLoadingAnimation';
 import FormResponseDataAccessForm from '../../components/FormResponseDataAccessForm/FormResponseDataAccessForm';
 import FormResponseDataTable from '../../components/FormResponseDataTable/FormResponseDataTable';
-import FormResponseDataTableLoadingAnimation from '../../animations/FormResponseDataTableLoadingAnimation/FormResponseDataTableLoadingAnimation';
+import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
 import FormResponseDataService from '../../services/FormResponseDataService';
+import ExtractErrors from '../../utils/ExtractErrors';
 import './FormResponseData.css';
 import ResponseDataState from './ResponseDataState';
-import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
-import ExtractErrors from '../../utils/ExtractErrors';
 
 
 export const AxiosStateContext = createContext();
