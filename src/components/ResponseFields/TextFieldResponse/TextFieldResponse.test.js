@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import TextBoxResponse from './TextBoxResponse';
+import TextFieldResponse from './TextFieldResponse';
 
 describe('<TextBoxResponse />', () => {
   test('it should mount', () => {
-    render(<TextBoxResponse />);
+    render(<TextFieldResponse />);
     
-    const textBoxResponse = screen.getByTestId('TextBoxResponse');
+    const textFieldResponse = screen.getByTestId('TextFieldResponse');
 
-    expect(textBoxResponse).toBeInTheDocument();
+    expect(textFieldResponse).toBeInTheDocument();
   });
 });

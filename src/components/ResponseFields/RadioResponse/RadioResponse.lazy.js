@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 
-const LazyRadioButtonResponse = lazy(() => import('./RadioButtonResponse'));
+const LazyRadioResponse = lazy(() => import('./RadioResponse'));
 
 const RadioButtonResponse = props => (
   <Suspense fallback={null}>
-    <LazyRadioButtonResponse {...props} />
+    <LazyRadioResponse {...props} />
   </Suspense>
 );
 

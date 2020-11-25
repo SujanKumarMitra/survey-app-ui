@@ -1,8 +1,8 @@
 import React from 'react';
 import CheckBoxResponse from '../components/ResponseFields/CheckBoxResponse/CheckBoxResponse.lazy';
 import DateResponse from '../components/ResponseFields/DateResponse/DateResponse.lazy';
-import RadioResponse from '../components/ResponseFields/RadioButtonResponse/RadioButtonResponse';
-import TextBoxResponse from '../components/ResponseFields/TextBoxResponse/TextBoxResponse.lazy';
+import RadioResponse from '../components/ResponseFields/RadioResponse/RadioResponse';
+import TextFieldResponse from '../components/ResponseFields/TextFieldResponse/TextFieldResponse.lazy';
 import TimeResponse from '../components/ResponseFields/TimeResponse/TimeResponse.lazy';
 import Card from '../components/Card/Card.lazy';
 
@@ -16,9 +16,9 @@ const fieldMapper = (field) => {
             return (<Card key={field.id}>
                 <TimeResponse {...field} />
             </Card>);
-        case 'textbox':
+        case 'text':
             return (<Card key={field.id}>
-                <TextBoxResponse {...field} />
+                <TextFieldResponse {...field} />
             </Card>);
         case 'checkbox':
             return (<Card key={field.id}>

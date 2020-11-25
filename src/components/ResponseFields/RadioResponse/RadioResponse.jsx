@@ -3,9 +3,9 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import React, { useContext } from 'react';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
-import './RadioButtonResponse.css';
+import './RadioResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
-import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
+import ErrorMessage from '../../ErrorMessage/ErrorMessage.lazy';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 
 const extractProps = (props) => {

@@ -5,7 +5,7 @@ import generateUUID from '../../../services/UUIDGenerator';
 import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
-import './TextBoxResponse.css';
+import './TextFieldResponse.css';
 
 const extractProps = (props) => {
     return {
@@ -17,12 +17,12 @@ const extractProps = (props) => {
 }
 const icon = <SubjectRoundedIcon className={style.alignMiddle} />
 
-const TextBoxResponse = (props) => {
+const TextFieldResponse = (props) => {
     const { responseMap } = useContext(ResponseContext);
     props = extractProps(props);
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'textbox',
+        type: 'text',
         answer: ''
     });
     const handleChange = (event) => {
@@ -57,10 +57,10 @@ const TextBoxResponse = (props) => {
     );
 }
 
-TextBoxResponse.defaultProps = {
+TextFieldResponse.defaultProps = {
     question: 'Question',
     required: false,
     questionId: generateUUID()
 };
 
-export default TextBoxResponse;
+export default TextFieldResponse;

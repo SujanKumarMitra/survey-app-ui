@@ -9,7 +9,7 @@ const PatternedDateTimeFormatter = (date, pattern) => {
     return dateFormat(date, pattern);
 }
 
-export const TextBoxResponseFormatter = (field, response) => response;
+export const TextFieldResponseFormatter = (field, response) => response;
 
 export const DateResponseFormatter = (field, response) => {
     response.answer = PatternedDateTimeFormatter(response.date, "isoDate");
@@ -30,7 +30,7 @@ export const CheckBoxResponseFormtter = (field, response) => {
     return response;
 };
 
-export const RadioButtonResponseFormtter = (field, response) => {
+export const RadioResponseFormtter = (field, response) => {
     response.answer = getOptionsMap(field).get(response.optionId);
     return response;
 };
@@ -39,8 +39,8 @@ const NoOpResponseFormatter = (field, response) => response;
 
 export const getFormatter = (type) => {
     switch (type) {
-        case 'textbox':
-            return TextBoxResponseFormatter;
+        case 'text':
+            return TextFieldResponseFormatter;
         case 'date':
             return DateResponseFormatter;
         case 'time':
@@ -48,7 +48,7 @@ export const getFormatter = (type) => {
         case 'checkbox':
             return CheckBoxResponseFormtter;
         case 'radio':
-            return RadioButtonResponseFormtter;
+            return RadioResponseFormtter;
         default:
             console.log(`unknown type ${type}`);
             return NoOpResponseFormatter;

@@ -1,10 +1,10 @@
 import React, { lazy, Suspense } from 'react';
 
-const LazyTextBoxResponse = lazy(() => import('./TextBoxResponse'));
+const LazyTextFieldResponse = lazy(() => import('./TextFieldResponse'));
 
 const TextBoxResponse = props => (
   <Suspense fallback={null}>
-    <LazyTextBoxResponse {...props} />
+    <LazyTextFieldResponse {...props} />
   </Suspense>
 );
 

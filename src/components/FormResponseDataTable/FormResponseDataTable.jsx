@@ -69,29 +69,6 @@ const FormResponseDataTable = (props) => {
 
     return (
         <>
-            <Container >
-                <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="customized table">
-                        <TableHead>
-                            <TableRow>
-                                {tableData.columns.map((column, index) => (
-                                    <StyledTableCell key={index} align="center">{column}</StyledTableCell>
-                                ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {tableData.renderingData()
-                                .map((row, index) => (
-                                    <StyledTableRow key={index}>
-                                        {row.map((cell, index) => (
-                                            <StyledTableCell key={index} align="center">{cell}</StyledTableCell>
-                                        ))}
-                                    </StyledTableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </Container>
             <Grid container direction="row" alignItems="center" justify="center" spacing={5}>
                 <Grid item>
                     <TablePagination
@@ -123,6 +100,29 @@ const FormResponseDataTable = (props) => {
                     <Button target="_blank" href={props.downloadUrl} variant="contained" color="primary">Download CSV</Button>
                 </Grid>
             </Grid>
+            <Container >
+                <TableContainer component={Paper}>
+                    <Table className={classes.table} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                {tableData.columns.map((column, index) => (
+                                    <StyledTableCell key={index} align="center">{column}</StyledTableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {tableData.renderingData()
+                                .map((row, index) => (
+                                    <StyledTableRow key={index}>
+                                        {row.map((cell, index) => (
+                                            <StyledTableCell key={index} align="center">{cell}</StyledTableCell>
+                                        ))}
+                                    </StyledTableRow>
+                                ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Container>
         </>
     );
 }
