@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core';
-import MaterialTextField from '@material-ui/core/TextField';
+import TextField from '@material-ui/core/TextField';
 import DateRangeRoundedIcon from '@material-ui/icons/DateRangeRounded';
 import React from 'react';
 import FieldCard from '../FieldCard/FieldCard';
@@ -23,8 +23,8 @@ const DateField = (props) => {
                 <Grid item>
                     <DateRangeRoundedIcon />
                 </Grid>
-                <Grid item xs={11}>
-                    <MaterialTextField
+                <Grid item xs={10}>
+                    <TextField
                         fullWidth
                         multiline
                         label="Question" />

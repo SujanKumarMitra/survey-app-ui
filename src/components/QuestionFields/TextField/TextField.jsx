@@ -23,7 +23,7 @@ const TextField = (props) => {
                 <Grid item>
                     <SubjectRoundedIcon />
                 </Grid>
-                <Grid item xs={11}>
+                <Grid item xs={10}>
                     <MaterialTextField
                         fullWidth
                         multiline
