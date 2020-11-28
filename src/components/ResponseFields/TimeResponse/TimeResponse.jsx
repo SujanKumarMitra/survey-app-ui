@@ -8,6 +8,7 @@ import Question from '../Question/Question.lazy';
 import './TimeResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
+import FieldType from '../../../services/FieldType';
 
 const extractProps = (props) => {
     return {
@@ -26,7 +27,7 @@ const TimeResponse = (props) => {
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'time',
+        type: FieldType.TIME,
         date: null,
         answer: null
     });

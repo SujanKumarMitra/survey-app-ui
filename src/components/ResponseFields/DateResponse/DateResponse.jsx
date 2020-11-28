@@ -8,6 +8,7 @@ import Question from '../Question/Question.lazy';
 import './DateResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
+import FieldType from '../../../services/FieldType';
 
 const extractProps = (props) => {
     return {
@@ -26,7 +27,7 @@ const DateResponse = (props) => {
 
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'date',
+        type: FieldType.DATE,
         date: null,
         answer: null
     });

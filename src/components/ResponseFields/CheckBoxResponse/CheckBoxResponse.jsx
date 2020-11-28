@@ -8,6 +8,7 @@ import Question from '../Question/Question.lazy';
 import ErrorMessage from './../../ErrorMessage/ErrorMessage.lazy';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 import './CheckBoxResponse.css';
+import FieldType from '../../../services/FieldType';
 
 const extractProps = (props) => {
     return {
@@ -52,7 +53,7 @@ const CheckBoxResponse = (props) => {
     const map = createMap(props.options);
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'checkbox',
+        type: FieldType.CHECKBOX,
         optionMap: map,
         optionIds: [],
         answer: ''

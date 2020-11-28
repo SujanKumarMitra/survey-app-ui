@@ -7,6 +7,7 @@ import './RadioResponse.css';
 import generateUUID from '../../../services/UUIDGenerator';
 import ErrorMessage from '../../ErrorMessage/ErrorMessage.lazy';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
+import FieldType from '../../../services/FieldType';
 
 const extractProps = (props) => {
     return {
@@ -43,7 +44,7 @@ const RadioResponse = (props) => {
     props = extractProps(props);
     const [response, setResponse] = React.useState({
         questionId: props.questionId,
-        type: 'radio',
+        type: FieldType.RADIO,
         optionId: '',
         answer: ''
     });

@@ -69,38 +69,7 @@ const FormResponseDataTable = (props) => {
 
     return (
         <>
-            <Grid container direction="row" alignItems="center" justify="center" spacing={5}>
-                <Grid item>
-                    <TablePagination
-                        component="div"
-                        rowsPerPageOptions={[2, 5, 10, 15, 20, 25, 50, 100]}
-                        count={tableData.totalCount}
-                        rowsPerPage={tableData.countPerPage}
-                        page={tableData.page}
-                        onChangePage={(event, page) => {
-                            setTableData({
-                                ...tableData,
-                                page: page,
-                            })
-                        }}
-                        onChangeRowsPerPage={(event) => {
-                            const { value: rowsPerPage } = event.target;
-                            setTableData({
-                                ...tableData,
-                                countPerPage: rowsPerPage,
-                                page: 0,
-                            })
-                        }}
-                    />
-                </Grid>
-                <Grid item>
-                    <Button onClick={handleRefresh} variant="contained" color="primary">Refresh</Button>
-                </Grid>
-                <Grid item>
-                    <Button target="_blank" href={props.downloadUrl} variant="contained" color="primary">Download CSV</Button>
-                </Grid>
-            </Grid>
-            <Container >
+            <Container>
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
@@ -122,6 +91,37 @@ const FormResponseDataTable = (props) => {
                         </TableBody>
                     </Table>
                 </TableContainer>
+                <Grid container direction="row" alignItems="center" justify="center" spacing={5}>
+                    <Grid item>
+                        <TablePagination
+                            component="div"
+                            rowsPerPageOptions={[2, 5, 10, 15, 20, 25, 50, 100]}
+                            count={tableData.totalCount}
+                            rowsPerPage={tableData.countPerPage}
+                            page={tableData.page}
+                            onChangePage={(event, page) => {
+                                setTableData({
+                                    ...tableData,
+                                    page: page,
+                                })
+                            }}
+                            onChangeRowsPerPage={(event) => {
+                                const { value: rowsPerPage } = event.target;
+                                setTableData({
+                                    ...tableData,
+                                    countPerPage: rowsPerPage,
+                                    page: 0,
+                                })
+                            }}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button onClick={handleRefresh} variant="contained" color="primary">Refresh</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button target="_blank" href={props.downloadUrl} variant="contained" color="primary">Download CSV</Button>
+                    </Grid>
+                </Grid>
             </Container>
         </>
     );

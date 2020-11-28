@@ -6,6 +6,7 @@ import style from '../../../utils/material-icon.module.css';
 import Question from '../Question/Question.lazy';
 import { ResponseContext } from '../../../pages/FormResponse/FormResponse';
 import './TextFieldResponse.css';
+import FieldType from '../../../services/FieldType';
 
 const extractProps = (props) => {
     return {
@@ -22,7 +23,7 @@ const TextFieldResponse = (props) => {
     props = extractProps(props);
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: 'text',
+        type: FieldType.TEXT,
         answer: ''
     });
     const handleChange = (event) => {
@@ -44,6 +45,7 @@ const TextFieldResponse = (props) => {
             <br />
             <TextField
                 fullWidth
+                multiline
                 label='Answer'
                 variant='outlined'
                 autoComplete='off'

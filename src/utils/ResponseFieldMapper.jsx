@@ -5,26 +5,27 @@ import RadioResponse from '../components/ResponseFields/RadioResponse/RadioRespo
 import TextFieldResponse from '../components/ResponseFields/TextFieldResponse/TextFieldResponse.lazy';
 import TimeResponse from '../components/ResponseFields/TimeResponse/TimeResponse.lazy';
 import Card from '../components/Card/Card.lazy';
+import FieldType from '../services/FieldType';
 
 const fieldMapper = (field) => {
     switch (field.type) {
-        case 'date':
+        case FieldType.DATE:
             return (<Card key={field.id} >
                 <DateResponse {...field} />
             </Card>);
-        case 'time':
+        case FieldType.TIME:
             return (<Card key={field.id}>
                 <TimeResponse {...field} />
             </Card>);
-        case 'text':
+        case FieldType.TEXT:
             return (<Card key={field.id}>
                 <TextFieldResponse {...field} />
             </Card>);
-        case 'checkbox':
+        case FieldType.CHECKBOX:
             return (<Card key={field.id}>
                 <CheckBoxResponse {...field} />
             </Card>);
-        case 'radio':
+        case FieldType.RADIO:
             return (<Card key={field.id}>
                 <RadioResponse {...field} />
             </Card>);
