@@ -68,9 +68,9 @@ const FormResponseDataTable = (props) => {
     }
 
     return (
-        <>
-            <Container>
-                <TableContainer component={Paper}>
+        <Grid container justify="center">
+            <Grid item xs={10}>
+                <TableContainer  component={Paper}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
@@ -122,8 +122,8 @@ const FormResponseDataTable = (props) => {
                         <Button target="_blank" href={props.downloadUrl} variant="contained" color="primary">Download CSV</Button>
                     </Grid>
                 </Grid>
-            </Container>
-        </>
+            </Grid>
+        </Grid>
     );
 }
 
