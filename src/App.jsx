@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import RadioField from './components/QuestionFields/RadioField/RadioField';
+import TimeField from './components/QuestionFields/TimeField/TimeField';
 import FormResponse from './pages/FormResponse/FormResponse';
 import FormResponseData from './pages/FormResponseData/FormResponseData';
 const App = (props) => {
@@ -13,7 +13,7 @@ const App = (props) => {
                     <FormResponseData />
                 </Route>
                 <Route exact path="/">
-                    <RadioField />
+                    <TimeField />
                 </Route>
             </Switch>
         </BrowserRouter>
