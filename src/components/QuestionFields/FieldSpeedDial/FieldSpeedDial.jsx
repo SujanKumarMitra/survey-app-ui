@@ -87,7 +87,7 @@ const FieldSpeedDial = (props) => {
                 {options
                     .map((action) => (
                         <SpeedDialAction
-                            key={action.name}
+                            key={action.type}
                             icon={action.icon}
                             tooltipTitle={action.name}
                             tooltipOpen
