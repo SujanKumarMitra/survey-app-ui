@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@material-ui/core';
-import CheckCircleOutlineRoundedIcon from '@material-ui/icons/CheckCircleOutlineRounded';
+import CheckBoxOutlinedIcon from '@material-ui/icons/CheckBoxOutlined';
 import Map from 'collections/map';
 import React, { useContext, useState } from 'react';
 import generateUUID from '../../../services/UUIDGenerator';
@@ -33,7 +33,7 @@ const extractOptionIds = (map) => {
         .map(e => e[0]);
 };
 
-const icon = <CheckCircleOutlineRoundedIcon className={style.alignMiddle} />;
+const icon = <CheckBoxOutlinedIcon className={style.alignMiddle} />;
 const CheckBoxResponse = (props) => {
     const { responseMap } = useContext(ResponseContext);
     const getFormControlLabel = (option, required) => {
