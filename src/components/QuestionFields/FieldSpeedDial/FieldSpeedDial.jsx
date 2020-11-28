@@ -27,25 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 const options = [
     {
-        icon: <SubjectRoundedIcon />,
-        name: 'Text',
-        type: FieldType.TEXT,
-        handleClick: function (event) {
-            console.log(this.type);
-        }
-    },
-    {
-        icon: <RadioButtonCheckedIcon />,
-        name: 'Radio',
-        type: FieldType.RADIO,
-        handleClick(event) {
-            console.log(this.type);
-        }
-    },
-    {
-        icon: <CheckCircleOutlineRoundedIcon />,
-        name: 'CheckBox',
-        type: FieldType.CHECKBOX,
+        icon: <ScheduleRoundedIcon />,
+        name: 'Time',
+        type: FieldType.TIME,
         handleClick(event) {
             console.log(this.type);
         }
@@ -59,10 +43,26 @@ const options = [
         }
     },
     {
-        icon: <ScheduleRoundedIcon />,
-        name: 'Time',
-        type: FieldType.TIME,
+        icon: <CheckCircleOutlineRoundedIcon />,
+        name: 'CheckBox',
+        type: FieldType.CHECKBOX,
         handleClick(event) {
+            console.log(this.type);
+        }
+    },
+    {
+        icon: <RadioButtonCheckedIcon />,
+        name: 'Radio',
+        type: FieldType.RADIO,
+        handleClick(event) {
+            console.log(this.type);
+        }
+    },
+    {
+        icon: <SubjectRoundedIcon />,
+        name: 'Text',
+        type: FieldType.TEXT,
+        handleClick: function (event) {
             console.log(this.type);
         }
     },
