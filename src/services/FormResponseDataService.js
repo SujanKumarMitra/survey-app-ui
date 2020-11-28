@@ -1,8 +1,9 @@
 import Axios from "axios";
+import ApiUrl from "./ApiUrl";
 
 export default class FormResponseDataService {
     constructor() {
-        this.baseUrl = "http://localhost:8081"
+        this.baseUrl = ApiUrl.DATA_STORAGE_SERVICE;
     }
 
     getResponseData(request) {

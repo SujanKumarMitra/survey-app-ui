@@ -1,8 +1,9 @@
 import Axios from "axios";
+import ApiUrl from "./ApiUrl";
 
 export default class FormResponseService {
     constructor() {
-        this.baseUrl = 'http://localhost:8082';
+        this.baseUrl = ApiUrl.FORM_SERVICE;
     }
 
     getForm(formId) {
