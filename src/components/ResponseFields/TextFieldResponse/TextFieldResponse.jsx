@@ -46,6 +46,7 @@ const TextFieldResponse = (props) => {
             <TextField
                 fullWidth
                 label='Answer'
+                multiline
                 variant='outlined'
                 autoComplete='off'
                 key={props.questionId}

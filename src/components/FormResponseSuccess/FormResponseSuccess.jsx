@@ -49,7 +49,7 @@ const FormResponseSuccess = (props) => {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to={`/form/${apiCallInfo.formId}`}>
+                            <Link to={`/submit/${apiCallInfo.formId}`}>
                                 <Button
                                     variant="contained"
                                     color="primary"
