@@ -15,18 +15,18 @@ const FormDescriptionField = (props) => {
     const cardClasses = cardStyles();
     const gridClasses = gridStyles();
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [title, setTitle] = useState(props.defaultTitle);
+    const [description, setDescription] = useState(props.defaultDescription);
 
     const handleTitleChange = (event) => {
         const { value } = event.target;
-        setTitle(value);
+        setTitle(value === '' ? props.defaultTitle : value);
         props.onTitleChange(value, event);
     }
 
     const handleDescriptionChange = (event) => {
         const { value } = event.target;
-        setDescription(value);
+        setDescription(value === '' ? props.defaultDescription : value);
         props.onDescriptionChange(value, event);
     }
 
@@ -36,7 +36,7 @@ const FormDescriptionField = (props) => {
             <main className={cardClasses.layout}>
                 <Paper className={cardClasses.paper}>
                     <Typography align="center" variant="h5">
-                        Create Form
+                        Create Poll
                     </Typography>
                     <Grid
                         container
@@ -53,7 +53,6 @@ const FormDescriptionField = (props) => {
                                 fullWidth
                                 value={title}
                                 onChange={handleTitleChange}
-                                label="Title"
                                 variant="outlined"
                             />
                         </Grid>
@@ -81,6 +80,8 @@ const FormDescriptionField = (props) => {
 }
 
 FormDescriptionField.defaultProps = {
+    defaultTitle: '',
+    defaultDescription: '',
     onTitleChange: (title, event) => {
         console.log(`default handler of FormDescriptionField.onTitleChange`);
         console.log(`new title='${title}'`);

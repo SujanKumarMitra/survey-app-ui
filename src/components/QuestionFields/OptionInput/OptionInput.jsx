@@ -24,10 +24,11 @@ const OptionInput = (props) => {
             <Grid item>
                 {props.icon}
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={8}>
                 <TextField
                     fullWidth
                     required
+                    value={props.value}
                     onChange={handleChange}
                     multiline
                     label="Option" />
@@ -48,6 +49,7 @@ const OptionInput = (props) => {
 OptionInput.defaultProps = {
     optionId: '#rand1',
     fieldId: '#rand2',
+    value: '',
     icon: <CheckBoxOutlineBlankIcon />,
     onOptionChange: (value, optionId, fieldId, event) => {
         console.log(`default handler of OptionInput.onOptionChange`);

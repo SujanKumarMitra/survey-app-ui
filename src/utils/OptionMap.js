@@ -15,6 +15,14 @@ export default class OptionMap {
         this._options.delete(optionId);
     }
 
+    isEmpty() {
+        return this._options.size === 0;
+    }
+
+    size() {
+        return this._options.size;
+    }
+
     get options() {
         return this._options;
     }

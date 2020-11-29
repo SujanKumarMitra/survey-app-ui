@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import FormLayout from './components/FormLayout/FormLayout';
+import FormCreate from './pages/FormCreate/FormCreate';
 import FormResponse from './pages/FormResponse/FormResponse';
 import FormResponseData from './pages/FormResponseData/FormResponseData';
 
@@ -8,14 +8,14 @@ const App = (props) => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/form/:formId">
+                <Route exact path="/submit/:formId">
                     <FormResponse />
                 </Route>
                 <Route exact path="/responses/">
                     <FormResponseData />
                 </Route>
-                <Route exact path="/">
-                    <FormLayout />
+                <Route exact path="/form/create">
+                    <FormCreate />
                 </Route>
             </Switch>
         </BrowserRouter>

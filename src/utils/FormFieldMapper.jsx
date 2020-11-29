@@ -5,13 +5,14 @@ import TimeField from "../components/QuestionFields/TimeField/TimeField";
 import generateUUID from "../services/UUIDGenerator";
 import CheckBoxField from "../components/QuestionFields/CheckBoxField/CheckBoxField";
 import RadioField from "../components/QuestionFields/RadioField/RadioField";
+import OptionMap from "./OptionMap";
 
 const hasOptions = (type) => type === FieldType.CHECK_BOX || type === FieldType.RADIO;
 
 export const createField = (type, fieldMap, triggerRender) => {
     const fieldId = generateUUID();
 
-    const optionMap = hasOptions(type) ? new Map() : undefined;
+    const optionMap = hasOptions(type) ? new OptionMap() : undefined;
     const field = getField(fieldId, type, fieldMap, triggerRender);
 
     fieldMap.put(fieldId, {
@@ -103,7 +104,7 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                     }}
                     onOptionAdd={(optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
-                        data.optionMap.set(optionId, {id: optionId, text: ''});
+                        data.optionMap.put(optionId, {id: optionId, text: ''});
                     }}
                     onOptionChange={(value, optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
@@ -111,7 +112,7 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                     }}
                     onOptionDelete={(optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
-                        data.optionMap.delete(optionId);
+                        data.optionMap.remove(optionId);
                     }}
                 />
             );
@@ -134,7 +135,7 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                     }}
                     onOptionAdd={(optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
-                        data.optionMap.set(optionId, {id: optionId, text: ''});
+                        data.optionMap.put(optionId, {id: optionId, text: ''});
                     }}
                     onOptionChange={(value, optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
@@ -142,7 +143,7 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                     }}
                     onOptionDelete={(optionId, fieldId, event) => {
                         const { data } = fieldMap.get(fieldId);
-                        data.optionMap.delete(optionId);
+                        data.optionMap.remove(optionId);
                     }}
                 />
             );

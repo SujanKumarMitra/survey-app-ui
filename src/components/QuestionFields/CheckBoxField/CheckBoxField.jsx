@@ -5,22 +5,32 @@ import generateUUID from '../../../services/UUIDGenerator';
 import OptionMap from '../../../utils/OptionMap';
 import AddOptionButton from '../AddOptionButton/AddOptionButton';
 import FieldCard from '../FieldCard/FieldCard';
+import OptionFieldErrorToast from '../OptionFieldErrorToast/OptionFieldErrorToast';
 import OptionInput from '../OptionInput/OptionInput';
 import QuestionInput from '../QuestionInput/QuestionInput';
 import Title from '../Title/Title';
 import './CheckBoxField.css';
 
 
+const createOption = () => ({ id: generateUUID(), text: '' });
 const optionMap = new OptionMap();
 
 const CheckBoxField = (props) => {
 
     const [, setRender] = useState({});
+    const [snackBarOpen, setSnackBarOpen] = useState(props.open);
+    const handleSnackBarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSnackBarOpen(false);
+    };
     const triggerRender = () => setRender(old => ({ ...old }));
+
     const handleOptionAdd = (fieldId, event) => {
-        const optionId = generateUUID();
-        optionMap.put(optionId, { id: optionId, text: '' });
-        props.onOptionAdd(optionId, fieldId, event);
+        const option = createOption();
+        optionMap.put(option.id, option);
+        props.onOptionAdd(option.id, fieldId, event);
         triggerRender();
     }
 
@@ -32,45 +42,65 @@ const CheckBoxField = (props) => {
     }
 
     const handleOptionDelete = (optionId, event) => {
-        optionMap.remove(optionId);
-        props.onOptionDelete(optionId, props.fieldId, event);
+
+        if (optionMap.size() === 1) {
+            setSnackBarOpen(true);
+            triggerRender();
+        }
+        else {
+            optionMap.remove(optionId);
+            props.onOptionDelete(optionId, props.fieldId, event);
+        }
         triggerRender();
     }
 
+    if (optionMap.isEmpty()) {
+        const option = createOption();
+        optionMap.put(option.id, option);
+        props.onOptionAdd(option.id, props.fieldId, {});
+    }
+
     return (
-        <FieldCard
-            fieldId={props.fieldId}
-            onRequiredChange={props.onRequiredChange}
-            onDelete={props.onDelete}
-        >
-            <Title content="Check Box Field" />
-            <QuestionInput
+        <>
+            <FieldCard
                 fieldId={props.fieldId}
-                onQuestionChange={props.onQuestionChange}
-                icon={<CheckBoxOutlinedIcon />}
+                onRequiredChange={props.onRequiredChange}
+                onDelete={props.onDelete}
+            >
+                <Title content="Check Box Field" />
+                <QuestionInput
+                    fieldId={props.fieldId}
+                    onQuestionChange={props.onQuestionChange}
+                    icon={<CheckBoxOutlinedIcon />}
+                />
+                <Title content="Options" />
+                {optionMap
+                    .getValues()
+                    .map((option, index) => {
+                        return (
+                            <OptionInput
+                                key={index}
+                                fieldId={props.fieldId}
+                                optionId={option.id}
+                                value={option.text}
+                                onDelete={handleOptionDelete}
+                                onChange={handleOptionChange}
+                                icon={<CheckBoxOutlineBlankIcon />}
+                            />
+                        );
+                    })
+                }
+                <br />
+                <AddOptionButton
+                    fieldId={props.fieldId}
+                    onClick={handleOptionAdd}
+                />
+            </FieldCard >
+            <OptionFieldErrorToast
+                open={snackBarOpen}
+                handleClose={handleSnackBarClose}
             />
-            <Title content="Options" />
-            {optionMap
-                .getValues()
-                .map((option, index) => {
-                    return (
-                        <OptionInput
-                            key={index}
-                            fieldId={props.fieldId}
-                            optionId={option.id}
-                            onDelete={handleOptionDelete}
-                            onChange={handleOptionChange}
-                            icon={<CheckBoxOutlineBlankIcon />}
-                        />
-                    );
-                })
-            }
-            <br />
-            <AddOptionButton
-                fieldId={props.fieldId}
-                onClick={handleOptionAdd}
-            />
-        </FieldCard >
+        </>
     );
 };
 

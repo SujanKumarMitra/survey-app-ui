@@ -1,27 +1,35 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import FormDescriptionField from '../QuestionFields/FormDescriptionField/FormDescriptionField';
 import FieldMap from "../../utils/FieldMap";
 import FieldSpeedDial from "../QuestionFields/FieldSpeedDial/FieldSpeedDial";
 import './FormLayout.css';
 import { Button, Grid, Typography } from '@material-ui/core';
 import createField from '../../utils/FormFieldMapper';
-import { red,green } from '@material-ui/core/colors';
+import { red, green } from '@material-ui/core/colors';
+import ConfirmDialogBox from '../ConfirmDialogBox/ConfirmDialogBox';
+import { AxiosContext } from '../../pages/FormCreate/FormCreate';
 
 const fieldMap = new FieldMap();
 const formInfo = {
-    name: '',
-    description: '',
+    name: 'Anonymous',
+    description: 'No Desciption Provided',
 };
 
 const FormLayout = (props) => {
 
-    const [render, setRender] = useState({});
+    const [, setRender] = useState({});
+    const [scrollRender, setScrollRender] = useState({});
+    const [dialogBoxState, setDialogBoxState] = useState(false);
     const scrollRef = useRef({});
+
+    const submitForm = useContext(AxiosContext);
+
     const triggerRender = () => setRender(old => ({ ...old }));
+    const triggerScrollRender = () => setScrollRender(old => ({ ...old }));
 
     useEffect(() => {
         scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }, [render]);
+    }, [scrollRender]);
 
     const handleTitleChange = (title) => {
         formInfo.name = title;
@@ -31,20 +39,28 @@ const FormLayout = (props) => {
         formInfo.description = description;
     }
 
-    const handleSubmitClick = (event) => {
-        // event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setDialogBoxState(true);
     }
 
     const handleSpeedDialClick = (type) => {
         createField(type, fieldMap, triggerRender);
-        triggerRender();
+        triggerScrollRender();
     }
 
-    console.log(fieldMap);
+    const handleConfirm = (event) => {
+        setDialogBoxState(false);
+        submitForm({formInfo: formInfo, fieldMap: fieldMap});
+    };
+
+    const handleCancel = (event) => {
+        setDialogBoxState(false);
+    };
 
     return (
         <>
-            <form onSubmit={handleSubmitClick}>
+            <form onSubmit={handleSubmit}>
                 <Grid
                     container
                     direction="column"
@@ -53,6 +69,8 @@ const FormLayout = (props) => {
                     alignItems="center">
                     <Grid item>
                         <FormDescriptionField
+                            defaultTitle={formInfo.name}
+                            defaultDescription={formInfo.description}
                             onTitleChange={handleTitleChange}
                             onDescriptionChange={handleDescriptionChange}
                         />
@@ -80,6 +98,13 @@ const FormLayout = (props) => {
                             color="primary" >
                             Submit
                         </Button>
+                    </Grid>
+                    <Grid item>
+                        <ConfirmDialogBox
+                            open={dialogBoxState}
+                            onConfirm={handleConfirm}
+                            onCancel={handleCancel}
+                        />
                     </Grid>
                 </Grid>
             </form>

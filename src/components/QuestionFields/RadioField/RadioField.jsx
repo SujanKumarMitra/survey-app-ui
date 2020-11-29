@@ -9,12 +9,22 @@ import Title from '../Title/Title';
 import OptionMap from '../../../utils/OptionMap';
 import generateUUID from '../../../services/UUIDGenerator';
 import './RadioField.css';
+import OptionFieldErrorToast from '../OptionFieldErrorToast/OptionFieldErrorToast';
 
 const optionMap = new OptionMap();
+const createOption = () => ({ id: generateUUID(), text: '' });
 
 const RadioField = (props) => {
     const [, setRender] = useState({});
+    const [snackBarOpen, setSnackBarOpen] = useState(props.open);
+    const handleSnackBarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSnackBarOpen(false);
+    };
     const triggerRender = () => setRender(old => ({ ...old }));
+    
     const handleOptionAdd = (fieldId, event) => {
         const optionId = generateUUID();
         optionMap.put(optionId, { id: optionId, text: '' });
@@ -30,44 +40,64 @@ const RadioField = (props) => {
     }
 
     const handleOptionDelete = (optionId, event) => {
-        optionMap.remove(optionId);
-        props.onOptionDelete(optionId, props.fieldId, event);
+        if (optionMap.size() === 1) {
+            setSnackBarOpen(true);
+            triggerRender();
+        }
+        else {
+            optionMap.remove(optionId);
+            props.onOptionDelete(optionId, props.fieldId, event);
+        }
         triggerRender();
     }
+
+    if (optionMap.isEmpty()) {
+        const option = createOption();
+        optionMap.put(option.id, option);
+        props.onOptionAdd(option.id, props.fieldId, {});
+    }
+
     return (
-        <FieldCard
-            fieldId={props.fieldId}
-            onRequiredChange={props.onRequiredChange}
-            onDelete={props.onDelete}
-        >
-            <Title content="Radio Field" />
-            <QuestionInput
+        <>
+            <FieldCard
                 fieldId={props.fieldId}
-                onQuestionChange={props.onQuestionChange}
-                icon={<RadioButtonCheckedIcon />}
+                onRequiredChange={props.onRequiredChange}
+                onDelete={props.onDelete}
+            >
+                <Title content="Radio Field" />
+                <QuestionInput
+                    fieldId={props.fieldId}
+                    onQuestionChange={props.onQuestionChange}
+                    icon={<RadioButtonCheckedIcon />}
+                />
+                <Title content="Options" />
+                {optionMap
+                    .getValues()
+                    .map((option, index) => {
+                        return (
+                            <OptionInput
+                                key={index}
+                                fieldId={props.fieldId}
+                                optionId={option.id}
+                                value={option.text}
+                                onDelete={handleOptionDelete}
+                                onChange={handleOptionChange}
+                                icon={<RadioButtonUncheckedIcon />}
+                            />
+                        );
+                    })
+                }
+                <br />
+                <AddOptionButton
+                    fieldId={props.fieldId}
+                    onClick={handleOptionAdd}
+                />
+            </FieldCard >
+            <OptionFieldErrorToast
+                open={snackBarOpen}
+                handleClose={handleSnackBarClose}
             />
-            <Title content="Options" />
-            {optionMap
-                .getValues()
-                .map((option, index) => {
-                    return (
-                        <OptionInput
-                            key={index}
-                            fieldId={props.fieldId}
-                            optionId={option.id}
-                            onDelete={handleOptionDelete}
-                            onChange={handleOptionChange}
-                            icon={<RadioButtonUncheckedIcon />}
-                        />
-                    );
-                })
-            }
-            <br />
-            <AddOptionButton
-                fieldId={props.fieldId}
-                onClick={handleOptionAdd}
-            />
-        </FieldCard >
+        </>
     );
 };
 
