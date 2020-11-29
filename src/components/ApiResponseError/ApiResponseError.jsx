@@ -4,10 +4,13 @@ import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import HomeIcon from '@material-ui/icons/Home';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ExtractErrors from '../../utils/ExtractErrors';
 import cardStyles from '../../utils/MaterialCardStyles';
-import './FormResponseError.css';
+import './ApiResponseError.css';
 
-const FormResponseError = (props) => {
+
+const ApiResponseError = (props) => {
+    const { errorTitle: title, errorDescription: description } = ExtractErrors(props.error);
     const cardClasses = cardStyles();
     return (
         <>
@@ -19,11 +22,11 @@ const FormResponseError = (props) => {
                             color: red[500]
                         }}><ErrorOutlineIcon
                                 fontSize='large' />
-                           {props.title}
+                            {title}
                         </span>
                     </Typography>
                     <Typography variant="body1" >
-                        {props.description}
+                        {description}
                     </Typography>
                     <br />
                     <Grid container justify="center" spacing={2}>
@@ -44,9 +47,9 @@ const FormResponseError = (props) => {
     );
 };
 
-FormResponseError.defaultProps = {
-    title: 'Error!!',
-    description: 'Something went wrong. Please try again later.'
+ApiResponseError.defaultProps = {
 };
 
-export default FormResponseError;
+ApiResponseError.defaultProps = {};
+
+export default ApiResponseError;

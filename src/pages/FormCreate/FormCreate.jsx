@@ -7,6 +7,7 @@ import FieldMapFlatMapper from '../../services/FieldMapFlatMapper';
 import FormCreateService from '../../services/FormCreateService';
 import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
 import FormCreateSuccess from '../../components/FormCreateSuccess/FormCreateSuccess';
+import ApiResponseError from '../../components/ApiResponseError/ApiResponseError';
 
 
 export const AxiosContext = createContext();
@@ -16,7 +17,6 @@ const FormCreate = (props) => {
     const [axiosState, setAxiosState] = useState({
         state: FormCreateState.CREATING,
         post({ formInfo, fieldMap }) {
-            console.log(fieldMap);
             const fields = FieldMapFlatMapper(fieldMap);
             const requestBody = { ...formInfo, fields: fields };
             const axiosPromise = formCreateService.post(requestBody);
@@ -35,7 +35,7 @@ const FormCreate = (props) => {
                 setAxiosState({
                     ...axiosState,
                     state: state,
-                    ...error
+                    error: error
                 });
             })
         }
@@ -58,13 +58,16 @@ const FormCreate = (props) => {
                 <FormCreateLoadingAnimaton />
             );
         case FormCreateState.POST_SUCCESS:
+            console.log({ ...axiosState.axiosResponse.data.data });
             return (
-                <FormCreateSuccess />
+                <FormCreateSuccess
+                    formId={axiosState.axiosResponse.data.data.id}
+                    formKey={axiosState.axiosResponse.data.data.key}
+                />
             );
         case FormCreateState.POST_ERROR:
-            return ( // TODO
-                <>
-                </>
+            return (
+                <ApiResponseError error={axiosState.error} />
             );
         case FormCreateState.SERVER_ERROR:
             return (

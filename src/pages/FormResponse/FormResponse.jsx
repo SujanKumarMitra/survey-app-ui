@@ -7,10 +7,9 @@ import FormResponseService from '../../services/FormResponseService';
 import ResponseMap from '../../utils/ResponseMap';
 import FormResponseLoadingAnimation from '../../animations/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
 import FormResponseSuccess from '../../components/FormResponseSuccess/FormResponseSuccess';
-import FormResponseError from '../../components/FormResponseError/FormResponseError';
 import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
-import ExtractErrors from '../../utils/ExtractErrors';
 import './FormResponse.css';
+import ApiResponseError from '../../components/ApiResponseError/ApiResponseError';
 
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();
@@ -36,12 +35,11 @@ const FormResponse = (props) => {
             }).catch(error => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
-                const { errorTitle, errorDescription } = ExtractErrors(error);
+                const state = error.response ? ResponseState.FETCH_ERROR : ResponseState.API_ERROR;
                 setAxiosState({
                     ...this,
-                    state: error.response ? ResponseState.FETCH_ERROR : ResponseState.API_ERROR,
-                    errorTitle: errorTitle,
-                    errorDescription: errorDescription
+                    state: state,
+                    error: error,
                 });
             });
         },
@@ -82,12 +80,11 @@ const FormResponse = (props) => {
             }).catch(error => {
                 console.log('axios promise rejected');
                 console.log({ ...error });
-                const { errorTitle, errorDescription } = ExtractErrors(error);
+                const state = error.response ? ResponseState.POST_ERROR : ResponseState.API_ERROR;
                 setAxiosState({
                     ...this,
-                    state: ResponseState.POST_ERROR,
-                    errorTitle: errorTitle,
-                    errorDescription: errorDescription
+                    state: state,
+                    error: error,
                 });
             })
         }
@@ -112,9 +109,8 @@ const FormResponse = (props) => {
             );
         case ResponseState.FETCH_ERROR:
             return (
-                <FormResponseError
-                    title={`${axiosState.errorTitle}`}
-                    description={`${axiosState.errorDescription}`}
+                <ApiResponseError
+                    {...axiosState}
                 />
             );
         case ResponseState.POSTING:
@@ -130,9 +126,8 @@ const FormResponse = (props) => {
             );
         case ResponseState.POST_ERROR:
             return (
-                <FormResponseError
-                    title={`${axiosState.errorTitle}`}
-                    description={`${axiosState.errorDescription}`}
+                <ApiResponseError
+                    {...axiosState}
                 />
             );
         case ResponseState.API_ERROR:

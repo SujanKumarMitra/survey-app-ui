@@ -34,7 +34,7 @@ const FormResponseData = (props) => {
                             columns: data.questions.items,
                             data: data.responses.items
                                 .map(row => {
-                                    row[0] = new Date(row[0]).toLocaleString("en-IN");
+                                    row[0] = new Date(row[0]).toLocaleString();
                                     return row;
                                 }),
                             downloadUrl: downloadUrl,
