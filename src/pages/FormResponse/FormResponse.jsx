@@ -1,7 +1,6 @@
 import React, { createContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import FormLayout from '../../components/FormLayout/FormLayout';
-import './FormResponse.css';
+import FormResponseLayout from '../../components/FormResponseLayout/FormResponseLayout';
 import { getFormatter } from '../../services/ResponseFormatter'
 import ResponseState from './ResponseState';
 import FormResponseService from '../../services/FormResponseService';
@@ -11,6 +10,7 @@ import FormResponseSuccess from '../../components/FormResponseSuccess/FormRespon
 import FormResponseError from '../../components/FormResponseError/FormResponseError';
 import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
 import ExtractErrors from '../../utils/ExtractErrors';
+import './FormResponse.css';
 
 const formResponseService = new FormResponseService();
 const responseMap = new ResponseMap();
@@ -106,7 +106,7 @@ const FormResponse = (props) => {
                         apiState: axiosState,
                         setApiState: setAxiosState
                     }}>
-                        <FormLayout formTemplate={axiosState.formTemplate} />
+                        <FormResponseLayout formTemplate={axiosState.formTemplate} />
                     </ApiStateContext.Provider>
                 </ResponseContext.Provider >
             );
