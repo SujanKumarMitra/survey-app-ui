@@ -1,6 +1,6 @@
 const FieldType = Object.freeze({
     TEXT: 'text',
-    CHECKBOX: 'checkbox',
+    CHECK_BOX: 'checkbox',
     RADIO: 'radio',
     DATE: 'date',
     TIME: 'time',

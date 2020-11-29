@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, TextField } from '@material-ui/core';
+import { Grid, TextField, Typography } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import style from '../../../utils/material-icon.module.css';
@@ -9,15 +9,35 @@ import gridStyles from '../../../utils/MaterialGridStyles';
 import Question from '../../ResponseFields/Question/Question';
 import cardStyles from './../../../utils/MaterialCardStyles';
 import './FormDescriptionField.css';
+import { useState } from 'react';
 
 const FormDescriptionField = (props) => {
     const cardClasses = cardStyles();
     const gridClasses = gridStyles();
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleTitleChange = (event) => {
+        const { value } = event.target;
+        setTitle(value);
+        props.onTitleChange(value, event);
+    }
+
+    const handleDescriptionChange = (event) => {
+        const { value } = event.target;
+        setDescription(value);
+        props.onDescriptionChange(value, event);
+    }
+
     return (
         <>
             <CssBaseline />
             <main className={cardClasses.layout}>
                 <Paper className={cardClasses.paper}>
+                    <Typography align="center" variant="h5">
+                        Create Form
+                    </Typography>
                     <Grid
                         container
                         direction="column"
@@ -31,20 +51,27 @@ const FormDescriptionField = (props) => {
                         <Grid item>
                             <TextField
                                 fullWidth
+                                value={title}
+                                onChange={handleTitleChange}
                                 label="Title"
-                                variant="outlined" />
+                                variant="outlined"
+                            />
                         </Grid>
                         <Grid item>
                             <Question
                                 icon={<DescriptionIcon className={style.alignMiddle} />}
-                                question='Form Description' />
+                                question='Form Description'
+                            />
                         </Grid>
                         <Grid item>
                             <TextField
                                 fullWidth
+                                value={description}
+                                onChange={handleDescriptionChange}
                                 label="Description"
                                 multiline
-                                variant="outlined" />
+                                variant="outlined"
+                            />
                         </Grid>
                     </Grid>
                 </Paper>
@@ -53,6 +80,17 @@ const FormDescriptionField = (props) => {
     );
 }
 
-FormDescriptionField.defaultProps = {};
+FormDescriptionField.defaultProps = {
+    onTitleChange: (title, event) => {
+        console.log(`default handler of FormDescriptionField.onTitleChange`);
+        console.log(`new title='${title}'`);
+        console.log(event);
+    },
+    onDescriptionChange: (decription, event) => {
+        console.log(`default handler of FormDescriptionField.onDescriptionChange`);
+        console.log(`new description='${decription}'`);
+        console.log(event);
+    },
+};
 
 export default FormDescriptionField;

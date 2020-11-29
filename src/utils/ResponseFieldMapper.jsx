@@ -21,7 +21,7 @@ const fieldMapper = (field) => {
             return (<Card key={field.id}>
                 <TextFieldResponse {...field} />
             </Card>);
-        case FieldType.CHECKBOX:
+        case FieldType.CHECK_BOX:
             return (<Card key={field.id}>
                 <CheckBoxResponse {...field} />
             </Card>);

@@ -53,7 +53,7 @@ const CheckBoxResponse = (props) => {
     const map = createMap(props.options);
     const [response, setResponse] = useState({
         questionId: props.questionId,
-        type: FieldType.CHECKBOX,
+        type: FieldType.CHECK_BOX,
         optionMap: map,
         optionIds: [],
         answer: ''

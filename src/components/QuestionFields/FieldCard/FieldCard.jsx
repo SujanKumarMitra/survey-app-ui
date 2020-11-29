@@ -7,10 +7,12 @@ import './FieldCard.css';
 const FieldCard = (props) => {
     const [checked, setChecked] = useState(true);
     const handleRequiredChange = (event) => {
-        setChecked(!checked);
+        const newChecked = !checked;
+        setChecked(newChecked);
+        props.onRequiredChange(newChecked, props.fieldId, event);
     }
     const handleDeleteClick = (event) => {
-        console.log(event);
+        props.onDelete(props.fieldId, event);
     }
     return (
         <Card>
@@ -49,6 +51,18 @@ const FieldCard = (props) => {
     );
 }
 
-FieldCard.defaultProps = {};
+FieldCard.defaultProps = {
+    fieldId: '#rand',
+    onRequiredChange: (value, fieldId, event) => {
+        console.log(`default handler of FieldCard.onQuestionChange`);
+        console.log(`required='${value}' for fieldId='${fieldId}'`);
+        console.log(event);
+    },
+    onDelete: (fieldId, event) => {
+        console.log(`default handler of FieldCard.onDelete`);
+        console.log(`delete button clicked for ${fieldId}`);
+        console.log(event);
+    }
+};
 
 export default FieldCard;
