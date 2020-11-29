@@ -1,14 +1,14 @@
 export default class ResponseMap {
     constructor() {
-        this._responses = new Map();
+        this._proxy = new Map();
     }
 
     put(questionId, data) {
-        this._responses.set(questionId, data);
+        this._proxy.set(questionId, data);
     }
 
     get responses() {
-        return this._responses;
+        return this._proxy;
     }
 
     set responses(responses) {}

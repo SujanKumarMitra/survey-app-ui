@@ -1,13 +1,55 @@
-import FieldType from "../services/FieldType";
-import TextField from "../components/QuestionFields/TextField/TextField";
-import DateField from "../components/QuestionFields/DateField/DateField";
-import TimeField from "../components/QuestionFields/TimeField/TimeField";
-import generateUUID from "../services/UUIDGenerator";
 import CheckBoxField from "../components/QuestionFields/CheckBoxField/CheckBoxField";
+import DateField from "../components/QuestionFields/DateField/DateField";
 import RadioField from "../components/QuestionFields/RadioField/RadioField";
+import TextField from "../components/QuestionFields/TextField/TextField";
+import TimeField from "../components/QuestionFields/TimeField/TimeField";
+import FieldType from "../services/FieldType";
+import generateUUID from "../services/UUIDGenerator";
 import OptionMap from "./OptionMap";
 
 const hasOptions = (type) => type === FieldType.CHECK_BOX || type === FieldType.RADIO;
+
+const handleOptionDelete = (fieldMap) => {
+    return (optionId, fieldId, event) => {
+        const { data } = fieldMap.get(fieldId);
+        data.optionMap.remove(optionId);
+    };
+}
+
+const handleOptionChange = (fieldMap) => {
+    return (value, optionId, fieldId, event) => {
+        const { data } = fieldMap.get(fieldId);
+        data.optionMap.get(optionId).text = value;
+    };
+}
+
+const handleOptionAdd = (fieldMap) => {
+    return (optionId, fieldId, event) => {
+        const { data } = fieldMap.get(fieldId);
+        data.optionMap.put(optionId, { id: optionId, text: '' });
+    };
+}
+
+const handleDelete = (fieldMap, triggerRender) => {
+    return (fieldId, event) => {
+        fieldMap.remove(fieldId);
+        triggerRender();
+    };
+}
+
+const handleRequiredChange = (fieldMap) => {
+    return (value, fieldId, event) => {
+        const { data } = fieldMap.get(fieldId);
+        data.required = value;
+    };
+}
+
+const handleQuestionChange = (fieldMap) => {
+    return (value, fieldId, event) => {
+        const { data } = fieldMap.get(fieldId);
+        data.question = value;
+    };
+}
 
 export const createField = (type, fieldMap, triggerRender) => {
     const fieldId = generateUUID();
@@ -33,18 +75,9 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                 <TextField
                     key={fieldId}
                     fieldId={fieldId}
-                    onQuestionChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.question = value;
-                    }}
-                    onRequiredChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.required = value;
-                    }}
-                    onDelete={(fieldId, event) => {
-                        fieldMap.remove(fieldId);
-                        triggerRender();
-                    }}
+                    onQuestionChange={handleQuestionChange(fieldMap)}
+                    onRequiredChange={handleRequiredChange(fieldMap)}
+                    onDelete={handleDelete(fieldMap, triggerRender)}
                 />
             );
         case FieldType.DATE:
@@ -52,18 +85,9 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                 <DateField
                     key={fieldId}
                     fieldId={fieldId}
-                    onQuestionChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.question = value;
-                    }}
-                    onRequiredChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.required = value;
-                    }}
-                    onDelete={(fieldId, event) => {
-                        fieldMap.remove(fieldId);
-                        triggerRender();
-                    }}
+                    onQuestionChange={handleQuestionChange(fieldMap)}
+                    onRequiredChange={handleRequiredChange(fieldMap)}
+                    onDelete={handleDelete(fieldMap, triggerRender)}
                 />
             );
         case FieldType.TIME:
@@ -71,18 +95,9 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                 <TimeField
                     key={fieldId}
                     fieldId={fieldId}
-                    onQuestionChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.question = value;
-                    }}
-                    onRequiredChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.required = value;
-                    }}
-                    onDelete={(fieldId, event) => {
-                        fieldMap.remove(fieldId);
-                        triggerRender();
-                    }}
+                    onQuestionChange={handleQuestionChange(fieldMap)}
+                    onRequiredChange={handleRequiredChange(fieldMap)}
+                    onDelete={handleDelete(fieldMap, triggerRender)}
                 />
             );
         case FieldType.CHECK_BOX:
@@ -90,30 +105,12 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                 <CheckBoxField
                     key={fieldId}
                     fieldId={fieldId}
-                    onQuestionChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.question = value;
-                    }}
-                    onRequiredChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.required = value;
-                    }}
-                    onDelete={(fieldId, event) => {
-                        fieldMap.remove(fieldId);
-                        triggerRender();
-                    }}
-                    onOptionAdd={(optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.put(optionId, {id: optionId, text: ''});
-                    }}
-                    onOptionChange={(value, optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.get(optionId).text = value;
-                    }}
-                    onOptionDelete={(optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.remove(optionId);
-                    }}
+                    onQuestionChange={handleQuestionChange(fieldMap)}
+                    onRequiredChange={handleRequiredChange(fieldMap)}
+                    onDelete={handleDelete(fieldMap, triggerRender)}
+                    onOptionAdd={handleOptionAdd(fieldMap)}
+                    onOptionChange={handleOptionChange(fieldMap)}
+                    onOptionDelete={handleOptionDelete(fieldMap)}
                 />
             );
         case FieldType.RADIO:
@@ -121,30 +118,12 @@ export const getField = (fieldId, type, fieldMap, triggerRender) => {
                 <RadioField
                     key={fieldId}
                     fieldId={fieldId}
-                    onQuestionChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.question = value;
-                    }}
-                    onRequiredChange={(value, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.required = value;
-                    }}
-                    onDelete={(fieldId, event) => {
-                        fieldMap.remove(fieldId);
-                        triggerRender();
-                    }}
-                    onOptionAdd={(optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.put(optionId, {id: optionId, text: ''});
-                    }}
-                    onOptionChange={(value, optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.get(optionId).text = value;
-                    }}
-                    onOptionDelete={(optionId, fieldId, event) => {
-                        const { data } = fieldMap.get(fieldId);
-                        data.optionMap.remove(optionId);
-                    }}
+                    onQuestionChange={handleQuestionChange(fieldMap)}
+                    onRequiredChange={handleRequiredChange(fieldMap)}
+                    onDelete={handleDelete(fieldMap, triggerRender)}
+                    onOptionAdd={handleOptionAdd(fieldMap)}
+                    onOptionChange={handleOptionChange(fieldMap)}
+                    onOptionDelete={handleOptionDelete(fieldMap)}
                 />
             );
         default:

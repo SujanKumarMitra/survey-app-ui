@@ -1,39 +1,39 @@
 export default class FieldMap {
     constructor() {
-        this._fields = new Map();
+        this._proxy = new Map();
     }
 
     put(fieldId, field) {
-        this._fields.set(fieldId, field);
+        this._proxy.set(fieldId, field);
     }
 
     get(fieldId) {
-        return this._fields.get(fieldId);
+        return this._proxy.get(fieldId);
     }
 
     remove(fieldId) {
-        this._fields.delete(fieldId);
+        this._proxy.delete(fieldId);
     }
 
     isEmpty() {
-        return this._fields.size == 0;
+        return this._proxy.size == 0;
     }
 
     get fields() {
-        return this._fields;
+        return this._proxy;
     }
 
     set fields(fields) { }
 
     getKeys() {
-        return [...this._fields.keys()];
+        return [...this._proxy.keys()];
     }
     getEntries() {
-        return [...this._fields.entries()]
+        return [...this._proxy.entries()]
             .map(entry => ({ key: entry[0], value: entry[1] }));
     }
 
     getValues() {
-        return [...this._fields.values()];
+        return [...this._proxy.values()];
     }
 }
