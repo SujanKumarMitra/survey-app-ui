@@ -27,17 +27,17 @@ const useStyles = makeStyles((theme) => ({
 
 const options = [
     {
-        icon: <ScheduleRoundedIcon />,
-        name: 'Time',
-        type: FieldType.TIME,
-        handleClick(event, props) {
+        icon: <SubjectRoundedIcon />,
+        name: 'Text',
+        type: FieldType.TEXT,
+        handleClick: function (event, props) {
             props.onClick(this.type, event);
         }
     },
     {
-        icon: <DateRangeRoundedIcon />,
-        name: 'Date',
-        type: FieldType.DATE,
+        icon: <RadioButtonCheckedIcon />,
+        name: 'Radio',
+        type: FieldType.RADIO,
         handleClick(event, props) {
             props.onClick(this.type, event);
         }
@@ -51,18 +51,18 @@ const options = [
         }
     },
     {
-        icon: <RadioButtonCheckedIcon />,
-        name: 'Radio',
-        type: FieldType.RADIO,
+        icon: <DateRangeRoundedIcon />,
+        name: 'Date',
+        type: FieldType.DATE,
         handleClick(event, props) {
             props.onClick(this.type, event);
         }
     },
     {
-        icon: <SubjectRoundedIcon />,
-        name: 'Text',
-        type: FieldType.TEXT,
-        handleClick: function (event, props) {
+        icon: <ScheduleRoundedIcon />,
+        name: 'Time',
+        type: FieldType.TIME,
+        handleClick(event, props) {
             props.onClick(this.type, event);
         }
     },
