@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css.map';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import $ from "jquery";
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from "../../components/Navbar/Navbar";
 import './Home.css';
 
@@ -50,7 +49,7 @@ const Home = (props) => {
                             <div>
                                 <h1>Anonymous Surveys</h1>
                                 <h2>Conduct surveys anonymously</h2>
-                                <Button component={Link} to="/form" variant="contained" color="primary">
+                                <Button href="/survey" variant="contained" color="primary">
                                     Get Started
                                 </Button>
                             </div>
