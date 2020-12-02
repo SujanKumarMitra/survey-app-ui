@@ -1,10 +1,11 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FormResponseLayout from '../../components/FormResponseLayout/FormResponseLayout';
 import { getFormatter } from '../../services/ResponseFormatter'
 import ResponseState from './ResponseState';
 import FormResponseService from '../../services/FormResponseService';
 import ResponseMap from '../../utils/ResponseMap';
+import Navbar from "../../components/Navbar/Navbar";
 import FormResponseLoadingAnimation from '../../animations/FormResponseLoadingAnimation/FormResponseLoadingAnimation';
 import FormResponseSuccess from '../../components/FormResponseSuccess/FormResponseSuccess';
 import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
@@ -90,7 +91,36 @@ const FormResponse = (props) => {
         }
     });
 
-    switch (axiosState.state) {
+    const state = axiosState.state;
+    useEffect(() => {
+        switch (state) {
+            case ResponseState.NOT_FETCHED:
+                document.title = "Fetching Form";
+                break;
+            case ResponseState.FETCH_SUCCESS:
+                document.title = axiosState.formTemplate.name;
+                break;
+            case ResponseState.FETCH_ERROR:
+                document.title = "Survey Not Found";
+                break;
+            case ResponseState.POSTING:
+                document.title = "Posting Response";
+                break;
+            case ResponseState.POST_SUCCESS:
+                document.title = "Response Posted";
+                break;
+            case ResponseState.POST_ERROR:
+                document.title = "Error occurred while posing Response";
+                break;
+            case ResponseState.API_ERROR:
+                document.title = "Server Error";
+                break;
+            default:
+                break;
+        }
+    }, [state, axiosState]);
+
+    switch (state) {
         case ResponseState.NOT_FETCHED:
             axiosState.fetch();
             return <FormResponseLoadingAnimation />
@@ -103,15 +133,19 @@ const FormResponse = (props) => {
                         apiState: axiosState,
                         setApiState: setAxiosState
                     }}>
+                        <Navbar />
                         <FormResponseLayout formTemplate={axiosState.formTemplate} />
                     </ApiStateContext.Provider>
                 </ResponseContext.Provider >
             );
         case ResponseState.FETCH_ERROR:
             return (
-                <ApiResponseError
-                    {...axiosState}
-                />
+                <>
+                    <Navbar />
+                    <ApiResponseError
+                        {...axiosState}
+                    />
+                </>
             );
         case ResponseState.POSTING:
             return <FormResponseLoadingAnimation />;
@@ -121,18 +155,25 @@ const FormResponse = (props) => {
                     apiCallInfo: axiosState,
                     setApiCallInfo: setAxiosState,
                 }}>
+                    <Navbar />
                     <FormResponseSuccess />
                 </ResponseContext.Provider>
             );
         case ResponseState.POST_ERROR:
             return (
-                <ApiResponseError
-                    {...axiosState}
-                />
+                <>
+                    <Navbar />
+                    <ApiResponseError
+                        {...axiosState}
+                    />
+                </>
             );
         case ResponseState.API_ERROR:
             return (
-                <ServerErrorCard />
+                <>
+                    <Navbar />
+                    <ServerErrorCard />
+                </>
             );
         default:
             console.log(`invalid state ${axiosState.state}`);

@@ -49,7 +49,7 @@ const FormCreateSuccess = (props) => {
                                 spacing={2}>
                                 <Grid item>
                                     <Question
-                                        question='Form ID'
+                                        question='Survey ID'
                                         icon={<ListAltIcon />}
                                     />
                                 </Grid>
@@ -79,7 +79,7 @@ const FormCreateSuccess = (props) => {
                                 </Grid>
                                 <Grid item>
                                     <Question
-                                        question='Response Url'
+                                        question='Submission Link'
                                         icon={<LinkIcon />}
                                     />
                                 </Grid>

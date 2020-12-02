@@ -36,7 +36,7 @@ const FormDescriptionField = (props) => {
             <main className={cardClasses.layout}>
                 <Paper className={cardClasses.paper}>
                     <Typography align="center" variant="h5">
-                        Create Poll
+                        Create Survey
                     </Typography>
                     <Grid
                         container

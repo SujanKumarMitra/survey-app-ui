@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import FormResponseDataTableLoadingAnimation from '../../animations/FormResponseDataTableLoadingAnimation/FormResponseDataTableLoadingAnimation';
 import FormResponseDataAccessForm from '../../components/FormResponseDataAccessForm/FormResponseDataAccessForm';
+import Navbar from "../../components/Navbar/Navbar";
 import FormResponseDataTable from '../../components/FormResponseDataTable/FormResponseDataTable';
 import ServerErrorCard from '../../components/ServerErrorCard/ServerErrorCard';
 import FormResponseDataService from '../../services/FormResponseDataService';
@@ -42,7 +43,7 @@ const FormResponseData = (props) => {
                     })
                 }).catch(error => {
                     console.log(`axios promise rejected`);
-                    const {errorDescription} = ExtractErrors(error);
+                    const { errorDescription } = ExtractErrors(error);
                     setAxiosState({
                         ...axiosState,
                         state: error.response ? ResponseDataState.DATA_FETCH_ERROR : ResponseDataState.API_ERROR,
@@ -51,7 +52,27 @@ const FormResponseData = (props) => {
                 });
         },
     });
-    console.log(axiosState);
+    useEffect(() => {
+        switch (axiosState.state) {
+            case ResponseDataState.FORM_INPUT_IN_PROGRESS:
+                document.title="Enter Credentials";
+                break;
+            case ResponseDataState.DATA_FETCH_ERROR:
+                document.title="Enter Credentials";
+                break;
+            case ResponseDataState.FORM_INPUT_COMPLETE:
+                document.title="Fetching Responses";
+                break;
+            case ResponseDataState.DATA_FETCH_SUCCESS:
+                document.title="Responses";
+                break;
+                case ResponseDataState.API_ERROR:
+                document.title="Server Error";
+                break;
+            default:
+                break;
+        }
+    }, [axiosState]);
     switch (axiosState.state) {
         case ResponseDataState.FORM_INPUT_IN_PROGRESS:
             return (
@@ -60,6 +81,7 @@ const FormResponseData = (props) => {
                         axiosState: axiosState,
                         setAxiosState: setAxiosState,
                     }}>
+                        <Navbar />
                         <FormResponseDataAccessForm />
                     </AxiosStateContext.Provider>
                 </>
@@ -67,7 +89,10 @@ const FormResponseData = (props) => {
         case ResponseDataState.FORM_INPUT_COMPLETE:
             axiosState.fetch();
             return (
-                <FormResponseDataTableLoadingAnimation />
+                <>
+                    <Navbar />
+                    <FormResponseDataTableLoadingAnimation />
+                </>
             );
         case ResponseDataState.DATA_FETCH_SUCCESS:
             return (
@@ -75,6 +100,7 @@ const FormResponseData = (props) => {
                     axiosState: axiosState,
                     setAxiosState: setAxiosState,
                 }}>
+                    <Navbar />
                     <FormResponseDataTable
                     />
                 </AxiosStateContext.Provider>
@@ -86,15 +112,19 @@ const FormResponseData = (props) => {
                         axiosState: axiosState,
                         setAxiosState: setAxiosState,
                     }}>
-                        <FormResponseDataAccessForm 
-                        errorMessage={axiosState.errorMessage}
+                        <Navbar />
+                        <FormResponseDataAccessForm
+                            errorMessage={axiosState.errorMessage}
                         />
                     </AxiosStateContext.Provider>
                 </>
             );
         case ResponseDataState.API_ERROR:
             return (
-                <ServerErrorCard />
+                <>
+                    <Navbar />
+                    <ServerErrorCard />
+                </>
             );
         default: // likely not going to execute
             console.log(`unknown state ${axiosState.state}`)

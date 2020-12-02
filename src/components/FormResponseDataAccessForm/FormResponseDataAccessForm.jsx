@@ -55,7 +55,7 @@ const FormResponseDataAccessForm = (props) => {
             <main className={cardClasses.layout}>
                 <Paper className={cardClasses.paper}>
                     <Typography variant="h4" align="center">
-                        Form Responses
+                        Survey Responses
                     </Typography>
                     <br />
                     <Typography variant="body1" align="center">
@@ -74,7 +74,7 @@ const FormResponseDataAccessForm = (props) => {
                             <Grid item>
                                 <FormLabel component={() =>
                                 (<Question
-                                    question='Form ID'
+                                    question='Survey ID'
                                     icon={<ListAltIcon
                                         className={style.alignMiddle}
                                     />}
@@ -86,7 +86,7 @@ const FormResponseDataAccessForm = (props) => {
                                     required
                                     value={axiosState.request.formId}
                                     onChange={handleFormIdChange}
-                                    label='Form ID'
+                                    label='Survey ID'
                                     variant='outlined'
                                     autoComplete='off'
                                 />

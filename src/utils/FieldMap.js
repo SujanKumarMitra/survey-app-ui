@@ -16,7 +16,7 @@ export default class FieldMap {
     }
 
     isEmpty() {
-        return this._proxy.size == 0;
+        return this._proxy.size === 0;
     }
 
     get fields() {

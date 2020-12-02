@@ -20,14 +20,14 @@ const Navbar = (props) => {
         <AppBar position="static">
             <Toolbar>
                 <Typography color="inherit" variant="h6" className={classes.title}>
-                    <Button component={Link} to="/form" color="inherit" >
+                    <Button href="/" color="inherit" >
                         Anonymous Surveys
                     </Button>
                 </Typography>
-                <Button component={Link} to="/form" color="inherit" >
+                <Button href="/survey" color="inherit" >
                     Create A Survey
                 </Button>
-                <Button component={Link} to="/responses" color="inherit" >
+                <Button href="/responses" color="inherit" >
                     View Survey Responses
                 </Button>
             </Toolbar>
