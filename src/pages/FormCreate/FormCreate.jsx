@@ -32,6 +32,7 @@ const FormCreate = (props) => {
                 });
             }).catch(error => {
                 console.log(`axios promise rejected`);
+                console.log({...error});
                 const state = error.response ? FormCreateState.POST_ERROR : FormCreateState.SERVER_ERROR;
                 setAxiosState({
                     ...axiosState,
