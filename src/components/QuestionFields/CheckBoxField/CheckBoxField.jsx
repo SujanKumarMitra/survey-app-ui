@@ -13,9 +13,9 @@ import './CheckBoxField.css';
 
 
 const createOption = () => ({ id: generateUUID(), text: '' });
-const optionMap = new OptionMap();
 
 const CheckBoxField = (props) => {
+    const [optionMap, ] = useState(new OptionMap());
 
     const [, setRender] = useState({});
     const [snackBarOpen, setSnackBarOpen] = useState(props.open);

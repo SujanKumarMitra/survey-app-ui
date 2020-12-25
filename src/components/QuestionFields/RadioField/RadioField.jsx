@@ -11,10 +11,10 @@ import generateUUID from '../../../services/UUIDGenerator';
 import './RadioField.css';
 import OptionFieldErrorToast from '../OptionFieldErrorToast/OptionFieldErrorToast';
 
-const optionMap = new OptionMap();
 const createOption = () => ({ id: generateUUID(), text: '' });
 
 const RadioField = (props) => {
+    const [optionMap,] = useState(new OptionMap());
     const [, setRender] = useState({});
     const [snackBarOpen, setSnackBarOpen] = useState(props.open);
     const handleSnackBarClose = (event, reason) => {
