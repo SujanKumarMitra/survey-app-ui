@@ -16,4 +16,8 @@ export default class ResponseMap {
     getValues() {
         return [...this.responses.values()];
     }
+
+    clear() {
+        this._proxy.clear();
+    }
 }

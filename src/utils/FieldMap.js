@@ -36,4 +36,8 @@ export default class FieldMap {
     getValues() {
         return [...this._proxy.values()];
     }
+
+    clear() {
+        this._proxy.clear();
+    }
 }

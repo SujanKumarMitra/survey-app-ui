@@ -9,14 +9,13 @@ import { red, green } from '@material-ui/core/colors';
 import ConfirmDialogBox from '../ConfirmDialogBox/ConfirmDialogBox';
 import { AxiosContext } from '../../pages/FormCreate/FormCreate';
 
-const fieldMap = new FieldMap();
 const formInfo = {
     name: 'Anonymous',
     description: 'No Desciption Provided',
 };
 
 const FormLayout = (props) => {
-
+    const [fieldMap,] = useState(new FieldMap());
     const [, setRender] = useState({});
     const [scrollRender, setScrollRender] = useState({});
     const [dialogBoxState, setDialogBoxState] = useState(false);

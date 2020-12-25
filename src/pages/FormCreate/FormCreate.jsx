@@ -25,6 +25,7 @@ const FormCreate = (props) => {
             axiosPromise.then(axiosResponse => {
                 console.log(`axios promise resolved`);
                 console.log(axiosResponse);
+                fieldMap.clear();
                 setAxiosState({
                     ...axiosState,
                     state: FormCreateState.POST_SUCCESS,
